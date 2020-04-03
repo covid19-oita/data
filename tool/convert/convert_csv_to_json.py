@@ -11,10 +11,11 @@ from copy import deepcopy
 PATIENTS_DATA_CSV_FILE_NAME = "440001_oita_covid19_patients.csv"
 INSPECTIONS_DATA_CSV_FILE_NAME = "440001_oita_covid19_inspections.csv"
 
+
 def main():
-    patients_data_csv_file = os.path.dirname(__file__) + "/../../static/data/" + PATIENTS_DATA_CSV_FILE_NAME
-    inspections_data_csv_file = os.path.dirname(__file__) + "/../../static/data/" + INSPECTIONS_DATA_CSV_FILE_NAME
-    export_json_file = os.path.dirname(__file__) + "/../../data/data.json"
+    patients_data_csv_file = os.path.dirname(__file__) + "/../../csv/" + PATIENTS_DATA_CSV_FILE_NAME
+    inspections_data_csv_file = os.path.dirname(__file__) + "/../../csv/" + INSPECTIONS_DATA_CSV_FILE_NAME
+    export_json_file = os.path.dirname(__file__) + "/../../json/data.json"
 
     if os.path.exists(patients_data_csv_file) == False or os.path.exists(inspections_data_csv_file) == False:
         print("CSV data files are not found.")
