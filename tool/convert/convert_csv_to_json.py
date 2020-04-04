@@ -8,13 +8,15 @@ import datetime
 import collections
 from copy import deepcopy
 
-PATIENTS_DATA_CSV_FILE_NAME = "440001_oita_covid19_patients.csv"
-INSPECTIONS_DATA_CSV_FILE_NAME = "440001_oita_covid19_inspections.csv"
+PATIENTS_DATA_CSV_FILE_NAME = "440001oitacovid19patients.csv"
+INSPECTIONS_DATA_CSV_FILE_NAME = "440001oitacovid19datasummary.csv"
 
 
 def main():
-    patients_data_csv_file = os.path.dirname(__file__) + "/../../csv/" + PATIENTS_DATA_CSV_FILE_NAME
-    inspections_data_csv_file = os.path.dirname(__file__) + "/../../csv/" + INSPECTIONS_DATA_CSV_FILE_NAME
+    patients_data_csv_file = os.path.dirname(
+        __file__) + "/../../csv/" + PATIENTS_DATA_CSV_FILE_NAME
+    inspections_data_csv_file = os.path.dirname(
+        __file__) + "/../../csv/" + INSPECTIONS_DATA_CSV_FILE_NAME
     export_json_file = os.path.dirname(__file__) + "/../../json/data.json"
 
     if not os.path.exists(patients_data_csv_file) or not os.path.exists(
@@ -22,8 +24,10 @@ def main():
         print("CSV data files are not found.")
         sys.exit(1)
 
-    patients_data = import_csv_to_dict(patients_data_csv_file, encoding='utf_8_sig')
-    inspections_data = import_csv_to_dict(inspections_data_csv_file, encoding='utf_8_sig')
+    patients_data = import_csv_to_dict(
+        patients_data_csv_file, encoding='utf_8_sig')
+    inspections_data = import_csv_to_dict(
+        inspections_data_csv_file, encoding='utf_8_sig')
 
     patients = generate_patients(patients_data)
     patients_summary_by_date = generate_patients_summary_by_date(patients_data)
@@ -66,13 +70,14 @@ def import_csv_to_dict(csv_file, encoding='utf_8_sig'):
 def generate_patients(data):
     patients = []
     for d in data:
+        date = d["公表_年月日"].replace("/", "-")
         p = {
-            "リリース日": d["公表_年月日"] + "T08:00:00",
+            "リリース日": date + "T08:00:00",
             "居住地": d["居住地"],
             "年代": d["年代"],
             "性別": d["性別"],
             "退院": d["退院済フラグ"],
-            "date": d["公表_年月日"]
+            "date": date
         }
         patients.append(p)
 
@@ -84,7 +89,7 @@ def generate_patients_summary_by_date(data):
 
     df_patients_summary = {}
     for k, v in summary_by_date.items():
-        df_patients_summary[datetime.datetime.strptime(k, '%Y-%m-%d')] = v
+        df_patients_summary[datetime.datetime.strptime(k, '%Y/%m/%d')] = v
 
     # 日付に対して値が0のデータを作る
     start_date = sorted(list(df_patients_summary.keys()))[0]
@@ -108,7 +113,8 @@ def generate_patients_summary_by_date(data):
 
 
 def generate_inspections_summary(data):
-    parsed_data = [{"日付": datetime.datetime.strptime(d["日付"], "%Y-%m-%d"), "小計": int(d["検査人数"])} for d in data]
+    parsed_data = [{"日付": datetime.datetime.strptime(
+        d["日付"], "%Y/%m/%d"), "小計": int(d["検査実施件数"])} for d in data]
 
     counted_date = [pd["日付"] for pd in parsed_data]
     start_date = sorted(counted_date)[0]
