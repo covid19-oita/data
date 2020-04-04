@@ -163,7 +163,6 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
         self.assertDictEqual(result, expect)
 
     def test_generate_sickbeds_summary(self):
-        # 総病床数:118
         expect_json = '''
 {
   "入院患者数": 18,
@@ -172,6 +171,33 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 '''.strip()
 
         result = ctj.generate_sickbeds_summary(self.data_summary)
+        expect = json.loads(expect_json)
+
+        self.assertDictEqual(result, expect)
+
+    def test_generate_main_summary(self):
+        expect_json = '''
+{
+  "attr": "累計",
+  "value": 19,
+  "children": [
+      {
+        "attr": "入院中",
+        "value": 18
+      },
+      {
+        "attr": "死亡",
+        "value": 0
+      },
+      {
+        "attr": "退院",
+        "value": 1
+      }
+  ]
+}
+'''.strip()
+
+        result = ctj.generate_main_summary(self.data_summary)
         expect = json.loads(expect_json)
 
         self.assertDictEqual(result, expect)
