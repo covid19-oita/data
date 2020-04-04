@@ -14,18 +14,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: '3.7'
-
-      - name: Generate data.json
-        run: python tool/convert/convert_csv_to_json.py
-        env:
-          TZ: 'Asia/Tokyo'
-
-      - name: commit data.json
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
+          python-version: "3.7"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
