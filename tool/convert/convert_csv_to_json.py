@@ -9,7 +9,7 @@ import collections
 from copy import deepcopy
 
 PATIENTS_DATA_CSV_FILE_NAME = "440001oitacovid19patients.csv"
-INSPECTIONS_DATA_CSV_FILE_NAME = "440001oitacovid19datasummary.csv"
+DATA_SUMMARY_CSV_FILE_NAME = "440001oitacovid19datasummary.csv"
 
 # 総病床数
 TOTAL_SICK_BEDS = 118
@@ -18,44 +18,49 @@ TOTAL_SICK_BEDS = 118
 def main():
     patients_data_csv_file = os.path.dirname(
         __file__) + "/../../csv/" + PATIENTS_DATA_CSV_FILE_NAME
-    inspections_data_csv_file = os.path.dirname(
+    data_summary_csv_file = os.path.dirname(
         __file__) + "/../../csv/" + INSPECTIONS_DATA_CSV_FILE_NAME
     export_json_file = os.path.dirname(__file__) + "/../../json/data.json"
 
     if not os.path.exists(patients_data_csv_file) or not os.path.exists(
-            inspections_data_csv_file):
+            data_summary_csv_file):
         print("CSV data files are not found.")
         sys.exit(1)
 
     patients_data = import_csv_to_dict(
         patients_data_csv_file, encoding='utf_8_sig')
-    inspections_data = import_csv_to_dict(
-        inspections_data_csv_file, encoding='utf_8_sig')
+    data_summary = import_csv_to_dict(
+        data_summary_csv_file, encoding='utf_8_sig')
 
     patients = generate_patients(patients_data)
     patients_summary_by_date = generate_patients_summary_by_date(patients_data)
     patients_summary_by_age = generate_patients_summary_by_age(patients_data)
-    inspections_summary = generate_inspections_summary(inspections_data)
+    inspections_summary = generate_inspections_summary(data_summary)
+    sickbeds_summary = generate_sickbeds_summary(data_summary)
 
-    today_date_string = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+    datetime_now_str = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
     data_json = {
         "patients": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": patients,
         },
         "patients_summary": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": patients_summary_by_date,
         },
         "inspections_summary": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": inspections_summary,
         },
         "age": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": patients_summary_by_age,
         },
-        "lastUpdate": today_date_string
+        "sickbeds_summary": {
+            "date": datetime_now_str,
+            "data": sickbeds_summary,
+        },
+        "lastUpdate": datetime_now_str
     }
 
     with open(export_json_file, 'w') as f:
