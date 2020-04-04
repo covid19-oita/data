@@ -41,6 +41,7 @@ def main():
     inspections_summary = generate_inspections_summary(data_summary)
     sickbeds_summary = generate_sickbeds_summary(data_summary)
     main_summary = generate_main_summary(data_summary)
+    main_summary["date"] = datatime_now_str
 
     data_json = {
         "patients": {
@@ -63,10 +64,7 @@ def main():
             "date": datetime_now_str,
             "data": sickbeds_summary,
         },
-        "main_summary": {
-            "date": datetime_now_str,
-            "data": main_summary,
-        },
+        "main_summary": main_summary,
         "lastUpdate": datetime_now_str
     }
 
@@ -130,8 +128,9 @@ def generate_patients_summary_by_date(data):
 
 
 def generate_inspections_summary(data):
-    parsed_data = [{"日付": datetime.datetime.strptime(
-        d["日付"], "%Y/%m/%d"), "小計": int(d["検査実施件数"])} for d in data if len(d["検査実施件数"]) != 0]
+    # 日付に年が入っていないのでここで補足する。
+    parsed_data = [{"日付": datetime.datetime.strptime(d["日付"], "%m月%d日").replace(
+        year=2020), "小計": int(d["検査実施件数"])} for d in data if len(d["検査実施件数"]) != 0]
 
     counted_date = [pd["日付"] for pd in parsed_data]
     start_date = sorted(counted_date)[0]
