@@ -11,6 +11,9 @@ from copy import deepcopy
 PATIENTS_DATA_CSV_FILE_NAME = "440001oitacovid19patients.csv"
 INSPECTIONS_DATA_CSV_FILE_NAME = "440001oitacovid19datasummary.csv"
 
+# 総病床数
+TOTAL_SICK_BEDS = 118
+
 
 def main():
     patients_data_csv_file = os.path.dirname(
@@ -158,6 +161,18 @@ def generate_patients_summary_by_age(data):
     }
 
     return patients_summary_by_age
+
+
+def generate_sickbeds_summary(data):
+    total_inpatients = sum([int(d["うち陽性"]) for d in data])
+    total_discharges = sum([int(d["退院"]) for d in data if len(d["退院"]) != 0])
+
+    current_inpatients = total_inpatients - total_discharges
+    sickbeds_summary = {
+        "入院患者数": current_inpatients,
+        "残り病床数": TOTAL_SICK_BEDS - current_inpatients,
+    }
+    return sickbeds_summary
 
 
 def summarize_data(data, key):

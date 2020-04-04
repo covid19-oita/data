@@ -22,16 +22,16 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 6,440001,大分県,,2020/03/20,金,,大分市,90代,女性,,,,,,"",医療機関職員
 '''.strip()
 
-        inspections_csv = '''
+        data_summary_csv = '''
 日付,検査実施件数,うち陽性,相談窓口相談件数,退院,死亡
 2020/3/20,67,5,100,,
 2020/3/21,111,7,117,,
-2020/3/22,182,6,99,,
+2020/3/22,182,6,99,1,
 2020/3/23,205,1,311,,
 '''.strip()
 
         self.patients_data = self.csv_to_dict(patients_csv)
-        self.inspections_data = self.csv_to_dict(inspections_csv)
+        self.data_summary = self.csv_to_dict(data_summary_csv)
 
     @classmethod
     def csv_to_dict(self, csv_data):
@@ -141,7 +141,7 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 }]
 '''.strip()
 
-        result = ctj.generate_inspections_summary(self.inspections_data)
+        result = ctj.generate_inspections_summary(self.data_summary)
         expect = json.loads(expect_json)
 
         self.assertListEqual(result, expect)
@@ -158,6 +158,20 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 '''.strip()
 
         result = ctj.generate_patients_summary_by_age(self.patients_data)
+        expect = json.loads(expect_json)
+
+        self.assertDictEqual(result, expect)
+
+    def test_generate_sickbeds_summary(self):
+        # 総病床数:118
+        expect_json = '''
+{
+  "入院患者数": 18,
+  "残り病床数": 100
+}
+'''.strip()
+
+        result = ctj.generate_sickbeds_summary(self.data_summary)
         expect = json.loads(expect_json)
 
         self.assertDictEqual(result, expect)
