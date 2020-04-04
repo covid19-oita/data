@@ -41,7 +41,7 @@ def main():
     inspections_summary = generate_inspections_summary(data_summary)
     sickbeds_summary = generate_sickbeds_summary(data_summary)
     main_summary = generate_main_summary(data_summary)
-    main_summary["date"] = datatime_now_str
+    main_summary["date"] = datetime_now_str
 
     data_json = {
         "patients": {
