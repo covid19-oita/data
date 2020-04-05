@@ -202,6 +202,33 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 
         self.assertDictEqual(result, expect)
 
+    def test_generate_querents(self):
+        expect_json = '''
+[
+  {
+    "日付": "2020-03-20",
+    "小計": 100
+  },
+  {
+    "日付": "2020-03-21",
+    "小計": 117
+  },
+  {
+    "日付": "2020-03-22",
+    "小計": 99
+  },
+  {
+    "日付": "2020-03-23",
+    "小計": 311
+  }
+]
+'''.strip()
+
+        result = ctj.generate_querents(self.data_summary)
+        expect = json.loads(expect_json)
+
+        self.assertListEqual(result, expect)
+
 
 if __name__ == "__main__":
     unittest.main()
