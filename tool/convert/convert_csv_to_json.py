@@ -42,6 +42,7 @@ def main():
     sickbeds_summary = generate_sickbeds_summary(data_summary)
     main_summary = generate_main_summary(data_summary)
     main_summary["date"] = datetime_now_str
+    querents = generate_querents(data_summary)
 
     data_json = {
         "patients": {
@@ -65,6 +66,10 @@ def main():
             "data": sickbeds_summary,
         },
         "main_summary": main_summary,
+        "querents": {
+            "date": datetime_now_str,
+            "data": querents
+        },
         "lastUpdate": datetime_now_str
     }
 
@@ -197,6 +202,20 @@ def generate_main_summary(data):
         ]
     }
     return main_summary
+
+
+def generate_querents(data):
+    # 日付に年が入っていないのでここで補足する。
+    parsed_data = [
+        {
+            "日付": datetime.datetime.strptime(
+                d["日付"],
+                "%m月%d日").replace(
+                year=2020).strftime("%Y-%m-%d"),
+            "小計": int(d["相談窓口相談件数"])
+        } for d in data if len(d["相談窓口相談件数"]) != 0]
+
+    return parsed_data
 
 
 def classfy_total_patients(data):
