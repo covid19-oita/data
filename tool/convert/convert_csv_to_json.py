@@ -8,47 +8,64 @@ import datetime
 import collections
 from copy import deepcopy
 
-PATIENTS_DATA_CSV_FILE_NAME = "440001_oita_covid19_patients.csv"
-INSPECTIONS_DATA_CSV_FILE_NAME = "440001_oita_covid19_inspections.csv"
+PATIENTS_DATA_CSV_FILE_NAME = "440001oitacovid19patients.csv"
+DATA_SUMMARY_CSV_FILE_NAME = "440001oitacovid19datasummary.csv"
+
+# 総病床数
+TOTAL_SICK_BEDS = 118
 
 
 def main():
-    patients_data_csv_file = os.path.dirname(__file__) + "/../../csv/" + PATIENTS_DATA_CSV_FILE_NAME
-    inspections_data_csv_file = os.path.dirname(__file__) + "/../../csv/" + INSPECTIONS_DATA_CSV_FILE_NAME
+    patients_data_csv_file = os.path.dirname(
+        __file__) + "/../../csv/" + PATIENTS_DATA_CSV_FILE_NAME
+    data_summary_csv_file = os.path.dirname(
+        __file__) + "/../../csv/" + DATA_SUMMARY_CSV_FILE_NAME
     export_json_file = os.path.dirname(__file__) + "/../../json/data.json"
 
     if not os.path.exists(patients_data_csv_file) or not os.path.exists(
-            inspections_data_csv_file):
+            data_summary_csv_file):
         print("CSV data files are not found.")
         sys.exit(1)
 
-    patients_data = import_csv_to_dict(patients_data_csv_file, encoding='utf_8_sig')
-    inspections_data = import_csv_to_dict(inspections_data_csv_file, encoding='utf_8_sig')
+    patients_data = import_csv_to_dict(
+        patients_data_csv_file, encoding='utf_8_sig')
+    data_summary = import_csv_to_dict(
+        data_summary_csv_file, encoding='utf_8_sig')
+
+    datetime_now_str = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
 
     patients = generate_patients(patients_data)
     patients_summary_by_date = generate_patients_summary_by_date(patients_data)
     patients_summary_by_age = generate_patients_summary_by_age(patients_data)
-    inspections_summary = generate_inspections_summary(inspections_data)
 
-    today_date_string = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+    inspections_summary = generate_inspections_summary(data_summary)
+    sickbeds_summary = generate_sickbeds_summary(data_summary)
+    main_summary = generate_main_summary(data_summary)
+    main_summary["date"] = datetime_now_str
+
     data_json = {
         "patients": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": patients,
         },
         "patients_summary": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": patients_summary_by_date,
         },
         "inspections_summary": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": inspections_summary,
         },
         "age": {
-            "date": today_date_string,
+            "date": datetime_now_str,
             "data": patients_summary_by_age,
         },
-        "lastUpdate": today_date_string
+        "sickbeds_summary": {
+            "date": datetime_now_str,
+            "data": sickbeds_summary,
+        },
+        "main_summary": main_summary,
+        "lastUpdate": datetime_now_str
     }
 
     with open(export_json_file, 'w') as f:
@@ -66,13 +83,16 @@ def import_csv_to_dict(csv_file, encoding='utf_8_sig'):
 def generate_patients(data):
     patients = []
     for d in data:
+        datetime_type_datetime = datetime.datetime.strptime(
+            d["公表_年月日"], '%Y/%m/%d')
+        datetime_str = datetime_type_datetime.strftime("%Y-%m-%d")
         p = {
-            "リリース日": d["公表_年月日"] + "T08:00:00",
+            "リリース日": datetime_str + "T08:00:00",
             "居住地": d["居住地"],
             "年代": d["年代"],
             "性別": d["性別"],
             "退院": d["退院済フラグ"],
-            "date": d["公表_年月日"]
+            "date": datetime_str
         }
         patients.append(p)
 
@@ -84,7 +104,7 @@ def generate_patients_summary_by_date(data):
 
     df_patients_summary = {}
     for k, v in summary_by_date.items():
-        df_patients_summary[datetime.datetime.strptime(k, '%Y-%m-%d')] = v
+        df_patients_summary[datetime.datetime.strptime(k, '%Y/%m/%d')] = v
 
     # 日付に対して値が0のデータを作る
     start_date = sorted(list(df_patients_summary.keys()))[0]
@@ -108,7 +128,9 @@ def generate_patients_summary_by_date(data):
 
 
 def generate_inspections_summary(data):
-    parsed_data = [{"日付": datetime.datetime.strptime(d["日付"], "%Y-%m-%d"), "小計": int(d["検査人数"])} for d in data]
+    # 日付に年が入っていないのでここで補足する。
+    parsed_data = [{"日付": datetime.datetime.strptime(d["日付"], "%m月%d日").replace(
+        year=2020), "小計": int(d["検査実施件数"])} for d in data if len(d["検査実施件数"]) != 0]
 
     counted_date = [pd["日付"] for pd in parsed_data]
     start_date = sorted(counted_date)[0]
@@ -152,6 +174,38 @@ def generate_patients_summary_by_age(data):
     }
 
     return patients_summary_by_age
+
+
+def generate_sickbeds_summary(data):
+    patients, discharges, inpatients, _ = classfy_total_patients(data)
+    sickbeds_summary = {
+        "入院患者数": inpatients,
+        "残り病床数": TOTAL_SICK_BEDS - inpatients,
+    }
+    return sickbeds_summary
+
+
+def generate_main_summary(data):
+    patients, discharges, inpatients, deaths = classfy_total_patients(data)
+    main_summary = {
+        "attr": "累計",
+        "value": patients,
+        "children": [
+            {"attr": "入院中", "value": inpatients},
+            {"attr": "死亡", "value": deaths},
+            {"attr": "退院", "value": discharges},
+        ]
+    }
+    return main_summary
+
+
+def classfy_total_patients(data):
+    patients = sum([int(d["うち陽性"]) for d in data if len(d["うち陽性"]) != 0])
+    discharges = sum([int(d["退院"]) for d in data if len(d["退院"]) != 0])
+    inpatients = patients - discharges
+    deaths = sum([int(d["死亡"]) for d in data if len(d["死亡"]) != 0])
+
+    return patients, discharges, inpatients, deaths
 
 
 def summarize_data(data, key):
