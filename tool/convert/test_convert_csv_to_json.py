@@ -1,6 +1,7 @@
 #!/bin/python
 
 import csv
+import datetime
 import unittest
 import io
 import json
@@ -115,9 +116,12 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
   "小計": 3
 }]
 '''.strip()
+        # テストデータのため2020-03-21から本日までの日付のデータを作成する
+        null_data = self.__generate_null_data(datetime.datetime(2020, 3, 21))
 
         result = ctj.generate_patients_summary_by_date(self.patients_data)
         expect = json.loads(expect_json)
+        expect.extend(null_data)
 
         self.assertListEqual(result, expect)
 
@@ -140,9 +144,11 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
   "小計": 205
 }]
 '''.strip()
+        null_data = self.__generate_null_data(datetime.datetime(2020, 3, 24))
 
         result = ctj.generate_inspections_summary(self.data_summary)
         expect = json.loads(expect_json)
+        expect.extend(null_data)
 
         self.assertListEqual(result, expect)
 
@@ -228,6 +234,21 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
         expect = json.loads(expect_json)
 
         self.assertListEqual(result, expect)
+
+    def __generate_null_data(self, start_date):
+        datetime_now = datetime.datetime.now()
+        end_date = datetime_now if datetime_now.hour >= 22 else \
+            datetime_now - datetime.timedelta(days=1)
+
+        null_data = []
+        for i in ctj.daterange(start_date, end_date):
+            d = {
+                "日付": i.strftime("%Y-%m-%d"),
+                "小計": 0,
+            }
+            null_data.append(d)
+
+        return null_data
 
 
 if __name__ == "__main__":
