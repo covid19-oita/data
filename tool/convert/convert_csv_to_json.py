@@ -113,7 +113,10 @@ def generate_patients_summary_by_date(data):
 
     # 日付に対して値が0のデータを作る
     start_date = sorted(list(df_patients_summary.keys()))[0]
-    end_date = sorted(list(df_patients_summary.keys()))[-1]
+
+    datetime_now = datetime.datetime.now()
+    end_date = datetime_now if datetime_now.hour >= 22 else \
+        datetime_now - datetime.timedelta(days=1)
 
     df_date = {}
     for i in daterange(start_date, end_date):
@@ -139,7 +142,10 @@ def generate_inspections_summary(data):
 
     counted_date = [pd["日付"] for pd in parsed_data]
     start_date = sorted(counted_date)[0]
-    end_date = sorted(counted_date)[-1]
+
+    datetime_now = datetime.datetime.now()
+    end_date = datetime_now if datetime_now.hour >= 22 else \
+        datetime_now - datetime.timedelta(days=1)
 
     # 日付に対して値が0のデータを作る
     df_date = {}
