@@ -11,9 +11,8 @@ PATIENTS_CSVFILE = "440001oitacovid19patients.csv"
 DATA_SUMMARY_CSVFILE = "440001oitacovid19datasummary.csv"
 EXPORT_JSON_FILE = "/../../json/data.json"
 
-
 # 総病床数
-TOTAL_SICK_BEDS = 118
+TOTAL_SICKBEDS = 118
 
 
 class DataHandler():
@@ -137,7 +136,7 @@ class DataHandler():
     def generate_sickbeds_summary(self):
         sickbeds_summary = {
             "入院患者数": self.current_inpatients,
-            "病床数": TOTAL_SICK_BEDS - self.current_inpatients
+            "病床数": TOTAL_SICKBEDS - self.current_inpatients
         }
 
         return sickbeds_summary
