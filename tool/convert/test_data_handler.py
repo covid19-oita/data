@@ -12,7 +12,7 @@ DATA_SUMMARY_CSVFILE = "test_440001oitacovid19datasummary.csv"
 
 class ConvertTest(unittest.TestCase):
     maxDiff = None
-
+    datetime_now_str = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
     patients_csvfile = os.path.dirname(
         __file__) + "/test/csv/" + PATIENTS_CSVFILE
     data_summary_csvfile = os.path.dirname(
@@ -208,6 +208,7 @@ class ConvertTest(unittest.TestCase):
         )
         result = dh.generate_main_summary()
         expect = json.loads(expect_json)
+        expect["date"] = self.datetime_now_str
 
         self.assertDictEqual(result, expect)
 
@@ -246,7 +247,7 @@ class ConvertTest(unittest.TestCase):
         self.assertListEqual(result, expect)
 
     def test_last_update(self):
-        expect = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+        expect = self.datetime_now_str
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,

@@ -17,10 +17,12 @@ TOTAL_SICKBEDS = 118
 
 class DataHandler():
     def __init__(self, patients_csvfile=None, data_summary_csvfile=None):
+        datetime_now = datetime.datetime.now()
+        self.datetime_now_str = datetime_now.strftime("%Y/%m/%d %H:%M")
+
         self.start_date = None
-        self.datetime_now = datetime.datetime.now()
-        self.end_date = self.datetime_now if self.datetime_now.hour >= 22 else \
-            self.datetime_now - datetime.timedelta(days=1)
+        self.end_date = datetime_now if datetime_now.hour >= 22 else \
+            datetime_now - datetime.timedelta(days=1)
 
         self.patients_csvfile = patients_csvfile
         self.patients_data = self.__import_patients_data()
@@ -34,34 +36,33 @@ class DataHandler():
         self.current_inpatients = None
         self.__classfy_data_summary()
 
-        datetime_now_str = self.datetime_now.strftime("%Y/%m/%d %H:%M")
         self.data = {
             "patients": {
-                "date": datetime_now_str,
+                "date": self.datetime_now_str,
                 "data": {}
             },
             "patients_summary": {
-                "date": datetime_now_str,
+                "date": self.datetime_now_str,
                 "data": {}
             },
             "inspections_summary": {
-                "date": datetime_now_str,
+                "date": self.datetime_now_str,
                 "data": {}
             },
             "age": {
-                "date": datetime_now_str,
+                "date": self.datetime_now_str,
                 "data": {}
             },
             "sickbeds_summary": {
-                "date": datetime_now_str,
+                "date": self.datetime_now_str,
                 "data": {}
             },
             "main_summary": {},
             "querents": {
-                "date": datetime_now_str,
+                "date": self.datetime_now_str,
                 "data": {}
             },
-            "lastUpdate": datetime_now_str
+            "lastUpdate": self.datetime_now_str
         }
 
     def generate_data(self):
@@ -143,6 +144,7 @@ class DataHandler():
 
     def generate_main_summary(self):
         main_summary = {
+            "date": self.datetime_now_str,
             "attr": "累計",
             "value": self.total_patients,
             "children": [
