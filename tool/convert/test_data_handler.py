@@ -1,43 +1,22 @@
 #!/bin/python
 
-import csv
 import datetime
+import os
 import unittest
-import io
 import json
-import convert_csv_to_json as ctj
+import data_handler as handler
+
+PATIENTS_CSVFILE = "test_440001oitacovid19patients.csv"
+DATA_SUMMARY_CSVFILE = "test_440001oitacovid19datasummary.csv"
 
 
 class ConvertTest(unittest.TestCase):
     maxDiff = None
-
-    @classmethod
-    def setUpClass(self):
-        patients_csv = '''
-No,全国地方公共団体コード,都道府県名,市区町村名,公表_年月日,曜日,発症_年月日,居住地,年代,性別,患者_属性,患者_状態,患者_症状,患者_渡航歴の有無フラグ,備考,退院済フラグ,職業
-2,440001,大分県,,2020/03/17,木,,大分市,10代,女性,,,,,,"",自営業
-2,440001,大分県,,2020/03/19,木,,臼杵市,20代,男性,,,,,,"",自営業
-3,440001,大分県,,2020/03/19,木,,臼杵市,30代,女性,,,,,,"",無職
-4,440001,大分県,,2020/03/20,金,,大分市,40代,女性,,,,,,"",医療機関職員
-5,440001,大分県,,2020/03/20,金,,大分市,60代,女性,,,,,,"",医療機関職員
-6,440001,大分県,,2020/03/20,金,,大分市,90代,女性,,,,,,"",医療機関職員
-'''.strip()
-
-        data_summary_csv = '''
-日付,検査実施件数,うち陽性,相談窓口相談件数,退院,死亡
-3月20日,67,5,100,,
-3月21日,111,7,117,,
-3月22日,182,6,99,1,
-3月23日,205,1,311,,
-'''.strip()
-
-        self.patients_data = self.csv_to_dict(patients_csv)
-        self.data_summary = self.csv_to_dict(data_summary_csv)
-
-    @classmethod
-    def csv_to_dict(self, csv_data):
-        rows = csv.DictReader(io.StringIO(csv_data))
-        return json.loads(json.dumps(list(rows), ensure_ascii=False))
+    datetime_now_str = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+    patients_csvfile = os.path.dirname(
+        __file__) + "/test/csv/" + PATIENTS_CSVFILE
+    data_summary_csvfile = os.path.dirname(
+        __file__) + "/test/csv/" + DATA_SUMMARY_CSVFILE
 
     def test_generate_patients(self):
         expect_json = '''
@@ -91,12 +70,16 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 }]
 '''.strip()
 
-        result = ctj.generate_patients(self.patients_data)
         expect = json.loads(expect_json)
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_patients()
 
         self.assertListEqual(result, expect)
 
-    def test_generate_patients_summary(self):
+    def test_generate_patients_summary_by_date(self):
 
         expect_json = '''
 [{
@@ -118,10 +101,14 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 '''.strip()
         # テストデータのため2020-03-21から本日までの日付のデータを作成する
         null_data = self.__generate_null_data(datetime.datetime(2020, 3, 21))
-
-        result = ctj.generate_patients_summary_by_date(self.patients_data)
         expect = json.loads(expect_json)
         expect.extend(null_data)
+
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_patients_summary_by_date()
 
         self.assertListEqual(result, expect)
 
@@ -145,10 +132,14 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 }]
 '''.strip()
         null_data = self.__generate_null_data(datetime.datetime(2020, 3, 24))
-
-        result = ctj.generate_inspections_summary(self.data_summary)
         expect = json.loads(expect_json)
         expect.extend(null_data)
+
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_inspections_summary()
 
         self.assertListEqual(result, expect)
 
@@ -163,7 +154,11 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 }
 '''.strip()
 
-        result = ctj.generate_patients_summary_by_age(self.patients_data)
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_patients_summary_by_age()
         expect = json.loads(expect_json)
 
         self.assertDictEqual(result, expect)
@@ -172,11 +167,15 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
         expect_json = '''
 {
   "入院患者数": 18,
-  "残り病床数": 100
+  "病床数": 100
 }
 '''.strip()
 
-        result = ctj.generate_sickbeds_summary(self.data_summary)
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_sickbeds_summary()
         expect = json.loads(expect_json)
 
         self.assertDictEqual(result, expect)
@@ -203,8 +202,13 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 }
 '''.strip()
 
-        result = ctj.generate_main_summary(self.data_summary)
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_main_summary()
         expect = json.loads(expect_json)
+        expect["date"] = self.datetime_now_str
 
         self.assertDictEqual(result, expect)
 
@@ -230,10 +234,28 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
 ]
 '''.strip()
 
-        result = ctj.generate_querents(self.data_summary)
+        null_data = self.__generate_null_data(datetime.datetime(2020, 3, 24))
         expect = json.loads(expect_json)
+        expect.extend(null_data)
+
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_querents()
 
         self.assertListEqual(result, expect)
+
+    def test_last_update(self):
+        expect = self.datetime_now_str
+
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_data()["lastUpdate"]
+
+        self.assertEqual(result, expect)
 
     def __generate_null_data(self, start_date):
         datetime_now = datetime.datetime.now()
@@ -241,7 +263,7 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
             datetime_now - datetime.timedelta(days=1)
 
         null_data = []
-        for i in ctj.daterange(start_date, end_date):
+        for i in self.__daterange(start_date, end_date):
             d = {
                 "日付": i.strftime("%Y-%m-%d"),
                 "小計": 0,
@@ -249,6 +271,10 @@ No,全国地方公共団体コード,都道府県名,市区町村名,公表_年�
             null_data.append(d)
 
         return null_data
+
+    def __daterange(self, start_date, end_date):
+        for n in range((end_date - start_date).days + 1):
+            yield start_date + datetime.timedelta(n)
 
 
 if __name__ == "__main__":
