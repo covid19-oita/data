@@ -20,8 +20,8 @@ jobs:
           curl -sS -o "./csv/440001oitacovid19patients.csv" $PATIENTS_DATA_URL
           curl -sS -o "./csv/440001oitacovid19datasummary.csv" $DATA_SUMMARY_URL
         env:
-          PATIENTS_DATA_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv
-          DATA_SUMMARY_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/96440e66-3061-43d6-adf3-ef1f24211d3a/download/440001oitacovid19datasummary.csv
+          PATIENTS_DATA_URL: https://data-covid19-oita.netlify.com/csv/440001oitacovid19patients.csv
+          DATA_SUMMARY_URL: https://data-covid19-oita.netlify.com/csv/440001oitacovid19datasummary.csv
 
       - name: Generate data.json
         run: python tool/convert/data_handler.py
