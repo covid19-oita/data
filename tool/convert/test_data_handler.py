@@ -167,7 +167,7 @@ class ConvertTest(unittest.TestCase):
         expect_json = '''
 {
   "入院患者数": 18,
-  "残り病床数": 100
+  "病床数": 100
 }
 '''.strip()
 

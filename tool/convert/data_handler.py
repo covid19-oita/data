@@ -137,7 +137,7 @@ class DataHandler():
     def generate_sickbeds_summary(self):
         sickbeds_summary = {
             "入院患者数": self.current_inpatients,
-            "残り病床数": TOTAL_SICK_BEDS - self.current_inpatients
+            "病床数": TOTAL_SICK_BEDS - self.current_inpatients
         }
 
         return sickbeds_summary
