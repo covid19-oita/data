@@ -213,11 +213,6 @@ class DataHandler():
 
         return summary
 
-    def __extract_dict_summary_data(self, key, value):
-        {}.join([{d[key]: d[value]} for d in self.data_summary])
-
-        return
-
     def __fill_in_zero_value_at_non_exists_date(self, summary_by_date):
         start_date = list(summary_by_date.keys())[0]
         null_date = dict.fromkeys(
