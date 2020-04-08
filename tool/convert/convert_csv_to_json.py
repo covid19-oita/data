@@ -191,7 +191,7 @@ def generate_sickbeds_summary(data):
     patients, discharges, inpatients, _ = classfy_total_patients(data)
     sickbeds_summary = {
         "入院患者数": inpatients,
-        "残り病床数": TOTAL_SICK_BEDS - inpatients,
+        "病床数": TOTAL_SICK_BEDS - inpatients,
     }
     return sickbeds_summary
 
