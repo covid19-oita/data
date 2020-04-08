@@ -61,7 +61,7 @@ class DataHandler():
                 "date": datetime_now_str,
                 "data": {}
             },
-            "lastUpdate": {}
+            "lastUpdate": datetime_now_str
         }
 
     def generate_data(self):

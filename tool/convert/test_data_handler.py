@@ -245,6 +245,17 @@ class ConvertTest(unittest.TestCase):
 
         self.assertListEqual(result, expect)
 
+    def test_last_update(self):
+        expect = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+
+        dh = handler.DataHandler(
+            patients_csvfile=self.patients_csvfile,
+            data_summary_csvfile=self.data_summary_csvfile
+        )
+        result = dh.generate_data()["lastUpdate"]
+
+        self.assertEqual(result, expect)
+
     def __generate_null_data(self, start_date):
         datetime_now = datetime.datetime.now()
         end_date = datetime_now if datetime_now.hour >= 22 else \
