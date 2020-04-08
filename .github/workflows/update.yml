@@ -1,0 +1,41 @@
+name: update data csv
+
+on:
+  schedule:
+    - cron: "* */1 * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+
+      - name: GET data csv file
+        run: |
+          curl -sS -o "./csv/440001oitacovid19patients.csv" $PATIENTS_DATA_URL
+          curl -sS -o "./csv/440001oitacovid19datasummary.csv" $DATA_SUMMARY_URL
+        env:
+          PATIENTS_DATA_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv
+          DATA_SUMMARY_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/96440e66-3061-43d6-adf3-ef1f24211d3a/download/440001oitacovid19datasummary.csv
+
+      - name: Generate data.json
+        run: python tool/convert/data_handler.py
+        env:
+          TZ: "Asia/Tokyo"
+
+      - name: commit data.json
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
