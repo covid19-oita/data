@@ -168,7 +168,12 @@ class DataHandler():
         return querents
 
     def __import_patients_data(self):
-        patients_data = self.__load_csvfile(self.patients_csvfile)
+        # 公表_年月日が空の場合はfilterする
+        patients_data = list(filter(
+            lambda x: len(x["公表_年月日"]) != 0,
+            self.__load_csvfile(self.patients_csvfile)
+        ))
+
         for d in patients_data:
             d["公表_年月日"] = datetime.datetime.strptime(d["公表_年月日"], '%Y/%m/%d')
 
