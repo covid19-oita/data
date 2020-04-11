@@ -126,11 +126,12 @@ class DataHandler():
     def generate_inspections_summary(self):
         inspections_summary = []
         for d in self.data_summary:
-            p = {
-                "日付": d["日付"].strftime("%Y-%m-%d"),
-                "小計": d["検査実施件数"]
-            }
-            inspections_summary.append(p)
+            if d["日付"] <= self.end_date:
+                p = {
+                    "日付": d["日付"].strftime("%Y-%m-%d"),
+                    "小計": d["検査実施件数"]
+                }
+                inspections_summary.append(p)
 
         return inspections_summary
 
