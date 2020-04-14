@@ -137,7 +137,8 @@ class ConvertTest(unittest.TestCase):
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
-            data_summary_csvfile=self.data_summary_csvfile
+            data_summary_csvfile=self.data_summary_csvfile,
+            total_sickbeds=118
         )
         result = dh.generate_inspections_summary()
 
@@ -173,7 +174,8 @@ class ConvertTest(unittest.TestCase):
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
-            data_summary_csvfile=self.data_summary_csvfile
+            data_summary_csvfile=self.data_summary_csvfile,
+            total_sickbeds=118
         )
         result = dh.generate_sickbeds_summary()
         expect = json.loads(expect_json)
@@ -251,7 +253,8 @@ class ConvertTest(unittest.TestCase):
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
-            data_summary_csvfile=self.data_summary_csvfile
+            data_summary_csvfile=self.data_summary_csvfile,
+            total_sickbeds=118
         )
         result = dh.generate_data()["lastUpdate"]
 
