@@ -32,7 +32,7 @@ jobs:
         id: check_diffs
 
       - name: Generate data.json
-        run: python tool/convert/data_handler.py
+        run: python tool/convert/main.py
         env:
           TZ: "Asia/Tokyo"
         if: steps.check_diffs.outputs.diff == 1

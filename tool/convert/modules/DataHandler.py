@@ -7,16 +7,8 @@ import datetime
 import collections
 from copy import deepcopy
 
-PATIENTS_CSVFILE = "440001oitacovid19patients.csv"
-DATA_SUMMARY_CSVFILE = "440001oitacovid19datasummary.csv"
-EXPORT_JSON_FILE = "/../../json/data.json"
-
-# 総病床数
-TOTAL_SICKBEDS = 118
-
-
 class DataHandler():
-    def __init__(self, patients_csvfile=None, data_summary_csvfile=None):
+    def __init__(self, patients_csvfile=None, data_summary_csvfile=None, total_sickbeds=None):
         datetime_now = datetime.datetime.now()
         self.datetime_now_str = datetime_now.strftime("%Y/%m/%d %H:%M")
 
@@ -34,6 +26,7 @@ class DataHandler():
         self.total_discharges = None
         self.total_deaths = None
         self.current_inpatients = None
+        self.total_sickbeds = total_sickbeds
         self.__classfy_data_summary()
 
         self.data = {
@@ -138,7 +131,7 @@ class DataHandler():
     def generate_sickbeds_summary(self):
         sickbeds_summary = {
             "入院患者数": self.current_inpatients,
-            "病床数": TOTAL_SICKBEDS - self.current_inpatients
+            "病床数": self.total_sickbeds - self.current_inpatients
         }
 
         return sickbeds_summary
@@ -250,24 +243,3 @@ class DataHandler():
         for n in range((end_date - start_date).days + 1):
             yield start_date + datetime.timedelta(n)
 
-
-def main():
-    csvfile_dir = "/../../csv/"
-    patients_csvfile = os.path.dirname(
-        __file__) + csvfile_dir + PATIENTS_CSVFILE
-    data_summary_csvfile = os.path.dirname(
-        __file__) + csvfile_dir + DATA_SUMMARY_CSVFILE
-    export_json_file = os.path.dirname(__file__) + EXPORT_JSON_FILE
-
-    dh = DataHandler(
-        patients_csvfile=patients_csvfile,
-        data_summary_csvfile=data_summary_csvfile,
-    )
-    data_json = dh.generate_data()
-
-    with open(export_json_file, 'w') as f:
-        json.dump(data_json, f, indent=2, ensure_ascii=False)
-
-
-if __name__ == "__main__":
-    main()

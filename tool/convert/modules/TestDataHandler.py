@@ -4,7 +4,7 @@ import datetime
 import os
 import unittest
 import json
-import data_handler as handler
+import DataHandler as handler
 
 PATIENTS_CSVFILE = "test_440001oitacovid19patients.csv"
 DATA_SUMMARY_CSVFILE = "test_440001oitacovid19datasummary.csv"
