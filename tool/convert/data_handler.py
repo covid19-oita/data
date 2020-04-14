@@ -160,11 +160,12 @@ class DataHandler():
     def generate_querents(self):
         querents = []
         for d in self.data_summary:
-            q = {
-                "日付": d["日付"].strftime("%Y-%m-%d"),
-                "小計": d["相談窓口相談件数"]
-            }
-            querents.append(q)
+            if d["日付"] <= self.end_date:
+                q = {
+                    "日付": d["日付"].strftime("%Y-%m-%d"),
+                    "小計": d["相談窓口相談件数"]
+                }
+                querents.append(q)
 
         return querents
 
