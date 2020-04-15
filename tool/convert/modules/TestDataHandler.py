@@ -4,10 +4,11 @@ import datetime
 import os
 import unittest
 import json
-import data_handler as handler
+import DataHandler as handler
 
 PATIENTS_CSVFILE = "test_440001oitacovid19patients.csv"
 DATA_SUMMARY_CSVFILE = "test_440001oitacovid19datasummary.csv"
+TOTAL_SICKBEDS = 118
 
 
 class ConvertTest(unittest.TestCase):
@@ -137,7 +138,8 @@ class ConvertTest(unittest.TestCase):
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
-            data_summary_csvfile=self.data_summary_csvfile
+            data_summary_csvfile=self.data_summary_csvfile,
+            total_sickbeds=TOTAL_SICKBEDS
         )
         result = dh.generate_inspections_summary()
 
@@ -173,7 +175,8 @@ class ConvertTest(unittest.TestCase):
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
-            data_summary_csvfile=self.data_summary_csvfile
+            data_summary_csvfile=self.data_summary_csvfile,
+            total_sickbeds=TOTAL_SICKBEDS
         )
         result = dh.generate_sickbeds_summary()
         expect = json.loads(expect_json)
@@ -251,7 +254,8 @@ class ConvertTest(unittest.TestCase):
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
-            data_summary_csvfile=self.data_summary_csvfile
+            data_summary_csvfile=self.data_summary_csvfile,
+            total_sickbeds=TOTAL_SICKBEDS
         )
         result = dh.generate_data()["lastUpdate"]
 
