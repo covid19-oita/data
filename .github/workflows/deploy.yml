@@ -24,7 +24,7 @@ jobs:
           PATIENTS_DATA_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv
           DATA_SUMMARY_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/96440e66-3061-43d6-adf3-ef1f24211d3a/download/440001oitacovid19datasummary.csv
 
-      - name: Generate data.json
+      - name: Generate data.json and news.json
         run: |
           pip install feedparser
           python tool/convert/main.py
@@ -39,7 +39,7 @@ jobs:
           git add ./json/news.json && git diff --cached --exit-code || echo "::set-output name=diff::1"
         id: check_diffs
 
-      - name: commit data.json
+      - name: commit data.json and news.json
         run: |
           git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
         if: steps.check_diffs.outputs.diff == 1
