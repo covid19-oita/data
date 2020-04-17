@@ -153,7 +153,7 @@ class DataHandler():
     def generate_querents(self):
         querents = []
         for d in self.data_summary:
-            if d["日付"] <= self.end_date:
+            if d["相談窓口相談件数"] is not None:
                 q = {
                     "日付": d["日付"].strftime("%Y-%m-%d"),
                     "小計": d["相談窓口相談件数"]
@@ -181,7 +181,9 @@ class DataHandler():
                 d["日付"], "%m月%d日").replace(year=2020)
             d["検査実施件数"] = int(d["検査実施件数"] or 0)
             d["うち陽性"] = int(d["うち陽性"] or 0)
-            d["相談窓口相談件数"] = int(d["相談窓口相談件数"] or 0)
+            d["相談窓口相談件数"] = int(
+                d["相談窓口相談件数"]) if len(
+                d["相談窓口相談件数"]) != 0 else None
             d["退院"] = int(d["退院"] or 0)
             d["死亡"] = int(d["死亡"] or 0)
 
@@ -191,7 +193,7 @@ class DataHandler():
                 "日付": date,
                 "検査実施件数": 0,
                 "うち陽性": 0,
-                "相談窓口相談件数": 0,
+                "相談窓口相談件数": None,
                 "退院": 0,
                 "死亡": 0
             })

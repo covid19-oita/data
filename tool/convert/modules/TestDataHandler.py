@@ -237,9 +237,7 @@ class ConvertTest(unittest.TestCase):
 ]
 '''.strip()
 
-        null_data = self.__generate_null_data(datetime.datetime(2020, 3, 24))
         expect = json.loads(expect_json)
-        expect.extend(null_data)
 
         dh = handler.DataHandler(
             patients_csvfile=self.patients_csvfile,
