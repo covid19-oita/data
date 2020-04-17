@@ -36,7 +36,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add ./csv/*.csv && git diff --cached --exit-code || echo "::set-output name=diff::1"
-          git add ./json/*.json && git diff --cached --exit-code || echo "::set-output name=diff::1"
+          git add ./json/news.json && git diff --cached --exit-code || echo "::set-output name=diff::1"
         id: check_diffs
 
       - name: commit data.json and news.json
