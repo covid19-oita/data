@@ -2,13 +2,13 @@
   "newsItems": [
     {
       "date": "2020-04-23",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk.html",
-      "text": "新型コロナウイルスに関する相談窓口について"
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "text": "大分県におけるPCR検査実施人数及び患者状況（R2.4.23 18：30更新）"
     },
     {
-      "date": "2020-04-22",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県におけるPCR検査実施人数及び患者状況（R2.4.22 19：00更新）"
+      "date": "2020-04-23",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk.html",
+      "text": "新型コロナウイルスに関する相談窓口について"
     },
     {
       "date": "2020-04-21",
