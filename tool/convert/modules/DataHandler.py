@@ -119,7 +119,7 @@ class DataHandler():
     def generate_inspections_summary(self):
         inspections_summary = []
         for d in self.data_summary:
-            if d["日付"] <= self.end_date:
+            if d["検査実施件数"] is not None:
                 p = {
                     "日付": d["日付"].strftime("%Y-%m-%d"),
                     "小計": d["検査実施件数"]
@@ -179,11 +179,9 @@ class DataHandler():
         for d in data_summary:
             d["日付"] = datetime.datetime.strptime(
                 d["日付"], "%m月%d日").replace(year=2020)
-            d["検査実施件数"] = int(d["検査実施件数"] or 0)
+            d["検査実施件数"] = int(d["検査実施件数"]) if d["検査実施件数"] else None
             d["うち陽性"] = int(d["うち陽性"] or 0)
-            d["相談窓口相談件数"] = int(
-                d["相談窓口相談件数"]) if len(
-                d["相談窓口相談件数"]) != 0 else None
+            d["相談窓口相談件数"] = int(d["相談窓口相談件数"]) if d["相談窓口相談件数"] else None
             d["退院"] = int(d["退院"] or 0)
             d["死亡"] = int(d["死亡"] or 0)
 
@@ -191,7 +189,7 @@ class DataHandler():
         for date in self.__daterange(start_date, self.end_date):
             data_summary.append({
                 "日付": date,
-                "検査実施件数": 0,
+                "検査実施件数": None,
                 "うち陽性": 0,
                 "相談窓口相談件数": None,
                 "退院": 0,
