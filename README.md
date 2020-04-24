@@ -20,10 +20,9 @@ Issues にあるいろいろな修正にご協力いただけると嬉しいで�
 #### 基本的なブランチ
 | 目的 | ブランチ | 確認URL | 備考 |
 | ---- | -------- | ---- | ---- |
-| 開発 | development | https://dev-data-covid19-oita.netlify.com/data.json | base branch。基本はこちらに Pull Requestを送ってください |
-| 本番 | master | https://data-covid19-oita.netlify.com/data.json | 管理者以外の Pull Request は禁止です |
+| 本番 | master | https://data-covid19-oita.netlify.app/data.json | base branch。こちらにPull Requestを送ってください |
 
 #### システムで利用しているブランチ
 | 目的 | ブランチ | 確認URL | 備考 |
 | ---- | -------- | ---- | ---- |
-| 本番サイト | production | https://data-covid19-oita.netlify.com/data.json | サイトで使用されるデータのURL |
+| 本番サイト | production | https://data-covid19-oita.netlify.app/data.json | サイトで使用されるデータのURL |
