@@ -31,22 +31,12 @@ jobs:
         env:
           TZ: "Asia/Tokyo"
 
-      - name: check diffs
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add ./csv/*.csv && git diff --cached --exit-code || echo "::set-output name=diff::1"
-          git add ./json/news.json && git diff --cached --exit-code || echo "::set-output name=diff::1"
-        id: check_diffs
-
       - name: commit data.json and news.json
         run: |
           git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
-        if: steps.check_diffs.outputs.diff == 1
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
-        if: steps.check_diffs.outputs.diff == 1
