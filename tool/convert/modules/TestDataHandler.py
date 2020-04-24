@@ -68,7 +68,16 @@ class ConvertTest(unittest.TestCase):
   "性別": "女性",
   "退院": "",
   "date": "2020-03-20"
-}]
+},
+{
+  "リリース日": "2020-03-21T08:00:00",
+  "居住地": "大分市",
+  "年代": "非公開",
+  "性別": "女性",
+  "退院": "",
+  "date": "2020-03-21"
+}
+]
 '''.strip()
 
         expect = json.loads(expect_json)
@@ -98,10 +107,14 @@ class ConvertTest(unittest.TestCase):
 {
   "日付": "2020-03-20",
   "小計": 3
+},
+{
+  "日付": "2020-03-21",
+  "小計": 1
 }]
 '''.strip()
         # テストデータのため2020-03-21から本日までの日付のデータを作成する
-        null_data = self.__generate_null_data(datetime.datetime(2020, 3, 21))
+        null_data = self.__generate_null_data(datetime.datetime(2020, 3, 22))
         expect = json.loads(expect_json)
         expect.extend(null_data)
 
@@ -150,7 +163,8 @@ class ConvertTest(unittest.TestCase):
   "20代〜30代": 2,
   "40代〜50代": 1,
   "60代〜70代": 1,
-  "80代以上": 1
+  "80代以上": 1,
+  "非公表": 1
 }
 '''.strip()
 

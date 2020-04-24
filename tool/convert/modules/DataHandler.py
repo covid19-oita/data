@@ -7,6 +7,7 @@ import datetime
 import collections
 from copy import deepcopy
 
+
 class DataHandler():
     def __init__(self, patients_csvfile=None, data_summary_csvfile=None, total_sickbeds=None):
         datetime_now = datetime.datetime.now()
@@ -112,6 +113,7 @@ class DataHandler():
             "40代〜50代": d["40代"] + d["50代"],
             "60代〜70代": d["60代"] + d["70代"],
             "80代以上": d["80代"] + d["90代"] + d["100代"],
+            "非公開": d["非公開"]
         }
 
         return patients_summary_by_age
@@ -242,4 +244,3 @@ class DataHandler():
     def __daterange(self, start_date, end_date):
         for n in range((end_date - start_date).days + 1):
             yield start_date + datetime.timedelta(n)
-
