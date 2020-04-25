@@ -19,4 +19,5 @@ Issues にあるいろいろな修正にご協力いただけると嬉しいで�
 | 本番 | master | https://data-covid19-oita.netlify.app/ | base branch。こちらにPull Requestを送ってください |
 
 master が更新されると、`/json` 配下のファイルが確認URLにホスティングされます。
+
 例) https://data-covid19-oita.netlify.app/data.json
