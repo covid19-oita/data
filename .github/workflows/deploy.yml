@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: "0 * * * *"
 
 jobs:
   deploy:
@@ -28,17 +30,37 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          pip install feedparser
-          python tool/convert/main.py
+          git add ./csv/*.csv && git diff --cached --exit-code || echo "::set-output name=diff::1"
+        id: check_diffs
+
+      - name: Generate data.json && commit
+        run: |
+          python tool/convert/data_handler.py
+          git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
         env:
           TZ: "Asia/Tokyo"
 
-      - name: commit data.json and news.json
-        run: |
-          git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
+      - name: Slack Alert(Generate data.json && commit)
+        uses: pullreminders/slack-action@v1
+        with:
+          args: '{\"channel\":\"C012JAN20EP\", \"text\":\"data.jsonの生成またはcommitに失敗しました :cry: :cry: \"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: failure()
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
+        if: steps.check_diffs.outputs.diff == 1
+      
+      - name: Slack Alert(Push changes)
+        uses: pullreminders/slack-action@v1
+        with:
+          args: '{\"channel\":\"C012JAN20EP\", \"text\":\"Pushに失敗しました :cry: \"}'
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        if: failure()
+
+      
