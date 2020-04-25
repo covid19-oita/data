@@ -40,12 +40,10 @@ jobs:
         env:
           TZ: "Asia/Tokyo"
 
-      - name: Slack Alert(Generate data.json && commit)
-        uses: pullreminders/slack-action@v1
-        with:
-          args: '{\"channel\":\"C012JAN20EP\", \"text\":\"data.jsonの生成またはcommitに失敗しました :cry: :cry: \"}'
+      - name: Slack Alert(generate data.json && commit)
+        run: curl -X POST -H 'Content-type: application/json' --data '{"text":"data.jsonの生成またはcommitに失敗しました"}' "$WEBHOOK"
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          WEBHOOK: ${{ secrets.WEBHOOK }}
         if: failure()
 
       - name: Push changes
@@ -56,11 +54,9 @@ jobs:
         if: steps.check_diffs.outputs.diff == 1
       
       - name: Slack Alert(Push changes)
-        uses: pullreminders/slack-action@v1
-        with:
-          args: '{\"channel\":\"C012JAN20EP\", \"text\":\"Pushに失敗しました :cry: \"}'
+        run: curl -X POST -H 'Content-type: application/json' --data '{"text":"pushに失敗しました"}' "$WEBHOOK"
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          WEBHOOK: ${{ secrets.WEBHOOK }}
         if: failure()
 
       
