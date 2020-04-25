@@ -26,6 +26,8 @@ jobs:
 
       - name: Generate data.json and news.json
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           pip install feedparser
           python tool/convert/main.py
         env:
