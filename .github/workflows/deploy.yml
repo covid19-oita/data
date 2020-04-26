@@ -34,7 +34,7 @@ jobs:
           TZ: "Asia/Tokyo"
 
       - name: Slack Alert(generate json files)
-        run: curl -X POST -H 'Content-type: application/json' --data '{"text":"jsonファイルの生成に失敗しました :cry: "}' "$WEBHOOK"
+        run: curl -X POST -H 'Content-type: application/json' --data '{"text":"jsonファイルの生成に失敗しました :cry:}' "$WEBHOOK"
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
         if: failure()
