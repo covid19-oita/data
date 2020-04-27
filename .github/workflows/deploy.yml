@@ -33,7 +33,10 @@ jobs:
           TZ: "Asia/Tokyo"
 
       - name: Slack Alert(generate json files)
-        run: curl -X POST -H 'Content-type: application/json' --data '{"text":"jsonファイルの生成に失敗しました :cry:}' ${WEBHOOK}
+        run: |
+          curl -X POST \
+          -H 'Content-type: application/json' \
+          --data '{"text": "pushに失敗しました :cry: "}' ${WEBHOOK}
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
         if: failure()
@@ -59,7 +62,10 @@ jobs:
         if: steps.check_diffs.outputs.diff == 1
       
       - name: Slack Alert(Push changes)
-        run: curl -X POST -H 'Content-type: application/json' --data '{"text":"pushに失敗しました"} ${WEBHOOK}
+        run: |
+          curl -X POST \
+          -H 'Content-type: application/json' \
+          --data '{"text": "pushに失敗しました :cry: "}' ${WEBHOOK}
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
         if: failure()
