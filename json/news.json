@@ -1,11 +1,6 @@
 {
   "newsItems": [
     {
-      "date": "2020-05-12",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県におけるPCR検査実施人数及び患者状況（R2.5.12 17：30更新）"
-    },
-    {
       "date": "2020-05-03",
       "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-oita-taisakuhonbu-20200504.html",
       "text": "「緊急事態宣言」の延長に伴う５月７日以降の対応について"
@@ -14,6 +9,11 @@
       "date": "2020-05-01",
       "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-008.html",
       "text": "DV（ドメスティック・バイオレンス）相談について"
+    },
+    {
+      "date": "2020-04-30",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
+      "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
     }
   ]
 }
