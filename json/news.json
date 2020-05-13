@@ -1,9 +1,19 @@
 {
   "newsItems": [
     {
-      "date": "2008-12-22",
-      "url": "http://www.pref.oita.jp/soshiki/notfound.html",
-      "text": "現在掲載されている情報はありません"
+      "date": "2020-05-12",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "text": "大分県におけるPCR検査実施人数及び患者状況（R2.5.12 17：30更新）"
+    },
+    {
+      "date": "2020-04-30",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
+      "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
+    },
+    {
+      "date": "2020-04-30",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk.html",
+      "text": "新型コロナウイルスに関する相談窓口について"
     }
   ]
 }
