@@ -178,7 +178,11 @@ class DataHandler():
         return patients_data
 
     def __import_data_summary(self):
-        data_summary = self.__load_csvfile(self.data_summary_csvfile)
+        data_summary = list(filter(
+            lambda x: len(x["日付"]) != 0,
+            self.__load_csvfile(self.data_summary_csvfile)
+        ))
+
         for d in data_summary:
             d["日付"] = datetime.datetime.strptime(
                 d["日付"], "%m月%d日").replace(year=2020)
