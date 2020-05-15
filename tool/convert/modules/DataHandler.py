@@ -11,6 +11,7 @@ from copy import deepcopy
 class DataHandler():
     def __init__(self, patients_csvfile=None, data_summary_csvfile=None, total_sickbeds=None):
         datetime_now = datetime.datetime.now()
+        self.datetime_now_year_str = datetime_now.strftime("%Y")
         self.datetime_now_str = datetime_now.strftime("%Y/%m/%d %H:%M")
 
         self.start_date = None
@@ -190,7 +191,7 @@ class DataHandler():
 
         for d in data_summary:
             d["日付"] = datetime.datetime.strptime(
-                d["日付"], "%m月%d日").replace(year=2020)
+                    self.datetime_now_year_str + "年" + d["日付"], "%Y年%m月%d日")
             d["検査実施件数"] = int(d["検査実施件数"]) if d["検査実施件数"] else None
             d["うち陽性"] = int(d["うち陽性"] or 0)
             d["相談窓口相談件数"] = int(d["相談窓口相談件数"]) if d["相談窓口相談件数"] else None
