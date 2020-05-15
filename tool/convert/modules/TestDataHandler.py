@@ -159,11 +159,16 @@ class ConvertTest(unittest.TestCase):
     def test_generate_patients_summary_by_age(self):
         expect_json = '''
 {
-  "10代以下": 1,
-  "20代〜30代": 2,
-  "40代〜50代": 1,
-  "60代〜70代": 1,
-  "80代以上": 1
+  "10代未満": 0,
+  "10代": 1,
+  "20代": 1,
+  "30代": 1,
+  "40代": 1,
+  "50代": 0,
+  "60代": 1,
+  "70代": 0,
+  "80代": 0,
+  "90代以上": 1
 }
 '''.strip()
 
