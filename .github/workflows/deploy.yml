@@ -60,14 +60,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
         if: steps.check_diffs.outputs.diff == 1
-      
-      - name: Slack Alert(Push changes)
-        run: |
-          curl -X POST \
-          -H 'Content-type: application/json' \
-          --data '{"text": "pushに失敗しました :cry: "}' ${WEBHOOK}
-        env:
-          WEBHOOK: ${{ secrets.WEBHOOK }}
-        if: failure()
 
       
