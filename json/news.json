@@ -1,19 +1,19 @@
 {
   "newsItems": [
     {
-      "date": "2020-05-28",
+      "date": "2020-05-29",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/kitakyuusyuusikankei.html",
+      "text": "北九州市における新型コロナウイルス感染症の感染拡大に伴う対応について"
+    },
+    {
+      "date": "2020-05-29",
       "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県におけるPCR検査実施人数及び患者状況（R2.5.28 17:30更新）"
+      "text": "大分県におけるPCR検査実施人数及び患者状況（R2.5.29 18:15更新）"
     },
     {
       "date": "2020-05-25",
       "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-oita-taisakuhonbu-20200526.html",
       "text": "緊急事態宣言の解除に伴う５月２６日以降の対応について"
-    },
-    {
-      "date": "2020-05-14",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-receiving-atarasii.html",
-      "text": "大分県版「新しい生活様式」を実践しましょう"
     }
   ]
 }
