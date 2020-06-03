@@ -8,7 +8,7 @@ DATA_SUMMARY_CSVFILE = "440001oitacovid19datasummary.csv"
 EXPORT_JSON_DIR = "/../../json/"
 
 # 総病床数
-TOTAL_SICKBEDS = 118
+TOTAL_SICKBEDS = 258
 
 RSS_URL = "http://www.pref.oita.jp/rss/10/site-1000786.xml"
 

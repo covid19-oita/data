@@ -8,7 +8,7 @@ import DataHandler as handler
 
 PATIENTS_CSVFILE = "test_440001oitacovid19patients.csv"
 DATA_SUMMARY_CSVFILE = "test_440001oitacovid19datasummary.csv"
-TOTAL_SICKBEDS = 118
+TOTAL_SICKBEDS = 258
 
 
 class ConvertTest(unittest.TestCase):
