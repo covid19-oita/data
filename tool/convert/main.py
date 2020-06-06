@@ -1,6 +1,6 @@
 import json
 import os
-import modules.DataHandler as handler
+import modules.PatientDataHandler as handler
 import modules.RSSHandler as rss
 
 PATIENTS_CSVFILE = "440001oitacovid19patients.csv"
@@ -21,7 +21,7 @@ def main():
         __file__) + csvfile_dir + DATA_SUMMARY_CSVFILE
     export_json_dir = os.path.dirname(__file__) + EXPORT_JSON_DIR
 
-    dh = handler.DataHandler(
+    dh = handler.PatientDataHandler(
         patients_csvfile=patients_csvfile,
         data_summary_csvfile=data_summary_csvfile,
         total_sickbeds=TOTAL_SICKBEDS,
