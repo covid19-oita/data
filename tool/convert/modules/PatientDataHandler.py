@@ -5,6 +5,7 @@ import csv
 import os
 import datetime
 import collections
+import decimal
 
 import modules.DataHandler as dhandler
 from copy import deepcopy

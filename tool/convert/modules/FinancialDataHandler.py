@@ -1,4 +1,5 @@
 import datetime
+from decimal import *
 from typing import Dict
 
 import modules.DataHandler as handler
@@ -74,17 +75,25 @@ class FinancialDataHandler(handler.DataHandler):
         return subsidy
 
     def generate_loan_achivements(self):
+        # 有効桁数
+        getcontext().prec = 5
+
         loan_achivements_with_gov = []
+        s = Decimal(0)
         for d in self.loan_amount_data:
-            amount = d["新型コロナ資金"] // 1000000
-            loan_achivements_with_gov.append(
-                sum(loan_achivements_with_gov) + amount)
+            s += Decimal(d["新型コロナ資金"])
+            loan_achivements_with_gov.append(s / Decimal(100000))
+        # 小数点第一位以下を切り捨て
+        loan_achivements_with_gov = [float(x.quantize(Decimal(str(10**(1*-1))), rounding=ROUND_DOWN))
+                                     for x in loan_achivements_with_gov]
 
         loan_achivements_with_pref = []
+        s = Decimal(0)
         for d in self.loan_amount_data:
-            amount = d["がんばろう資金"] // 1000000
-            loan_achivements_with_pref.append(
-                sum(loan_achivements_with_pref) + amount)
+            s += Decimal(d["がんばろう資金"])
+            loan_achivements_with_pref.append(s / Decimal(100000))
+        loan_achivements_with_pref = [float(x.quantize(Decimal(str(10**(1*-1))), rounding=ROUND_DOWN))
+                                      for x in loan_achivements_with_pref]
 
         dates = list(map(
             lambda x: x["基準日"].strftime("%m/%d"),
