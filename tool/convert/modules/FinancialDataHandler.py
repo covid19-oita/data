@@ -104,14 +104,13 @@ class FinancialDataHandler(handler.DataHandler):
         summary_data = self.summarize_data_by_key(
             self.loan_counts_data, "業種コード")
 
-        d = list(map(
-            lambda x: x,
-            summary_data
-        ))
+        loan_achivements_by_industry_data = {}
+        for k, v in summary_data.items():
+            loan_achivements_by_industry_data[self.industry_master_data[k]] = v
 
         loan_achivements_by_industry = {
             "date": self.datetime_now_str,
-            "data": d
+            "data": loan_achivements_by_industry_data,
         }
 
         return loan_achivements_by_industry
@@ -139,13 +138,13 @@ class FinancialDataHandler(handler.DataHandler):
         return loan_counts_data
 
     def __import_industry_master_data(self, csvfile: str) -> Dict:
-        m = self.filter_by_key(
+        master = self.filter_by_key(
             self.load_json_from_csv(csvfile),
             "業種コード"
         )
 
         industry_master_data = {}
-        for d in m:
+        for d in master:
             industry_master_data[int(d["業種コード"])] = d["業種名"]
 
         return industry_master_data
