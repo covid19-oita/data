@@ -84,7 +84,7 @@ class FinancialDataHandler(handler.DataHandler):
             s += Decimal(d["新型コロナ資金"])
             loan_achivements_with_gov.append(s / Decimal(100000))
         # 小数点第一位以下を切り捨て
-        loan_achivements_with_gov = [float(x.quantize(Decimal(str(10**(1*-1))), rounding=ROUND_DOWN))
+        loan_achivements_with_gov = [float(x.quantize(Decimal(str(10**(1*-1))), rounding=ROUND_DOWN)) if x != Decimal(0) else 0
                                      for x in loan_achivements_with_gov]
 
         loan_achivements_with_pref = []
@@ -92,7 +92,7 @@ class FinancialDataHandler(handler.DataHandler):
         for d in self.loan_amount_data:
             s += Decimal(d["がんばろう資金"])
             loan_achivements_with_pref.append(s / Decimal(100000))
-        loan_achivements_with_pref = [float(x.quantize(Decimal(str(10**(1*-1))), rounding=ROUND_DOWN))
+        loan_achivements_with_pref = [float(x.quantize(Decimal(str(10**(1*-1))), rounding=ROUND_DOWN)) if x != Decimal(0) else 0
                                       for x in loan_achivements_with_pref]
 
         dates = list(map(
