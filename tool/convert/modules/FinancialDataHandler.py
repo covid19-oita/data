@@ -74,15 +74,17 @@ class FinancialDataHandler(handler.DataHandler):
         return subsidy
 
     def generate_loan_achivements(self):
-        loan_achivements_with_gov = list(map(
-            lambda x: x["新型コロナ資金"],
-            self.loan_amount_data
-        ))
+        loan_achivements_with_gov = []
+        for d in self.loan_amount_data:
+            amount = d["新型コロナ資金"] // 1000000
+            loan_achivements_with_gov.append(
+                sum(loan_achivements_with_gov) + amount)
 
-        loan_achivements_with_pref = list(map(
-            lambda x: x["がんばろう資金"],
-            self.loan_amount_data
-        ))
+        loan_achivements_with_pref = []
+        for d in self.loan_amount_data:
+            amount = d["がんばろう資金"] // 1000000
+            loan_achivements_with_pref.append(
+                sum(loan_achivements_with_pref) + amount)
 
         dates = list(map(
             lambda x: x["基準日"].strftime("%m/%d"),
@@ -101,16 +103,13 @@ class FinancialDataHandler(handler.DataHandler):
         return loan_achivements
 
     def generate_loan_achivements_by_industry(self):
-        summary_data = self.summarize_data_by_key(
-            self.loan_counts_data, "業種コード")
-
-        loan_achivements_by_industry_data = {}
-        for k, v in summary_data.items():
-            loan_achivements_by_industry_data[self.industry_master_data[k]] = v
+        count_by_industry = {d: 0 for d in self.industry_master_data.values()}
+        for d in self.loan_counts_data:
+            count_by_industry[self.industry_master_data[d["業種コード"]]] += d["件数"]
 
         loan_achivements_by_industry = {
             "date": self.datetime_now_str,
-            "data": loan_achivements_by_industry_data,
+            "data": count_by_industry
         }
 
         return loan_achivements_by_industry
