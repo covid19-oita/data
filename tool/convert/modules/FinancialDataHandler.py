@@ -75,12 +75,12 @@ class FinancialDataHandler(handler.DataHandler):
 
     def generate_loan_achivements(self):
         loan_achivements_with_gov = list(map(
-            lambda x: x["新型コロナ資金"],
+            lambda x: x["新型コロナ資金"] // 10000,
             self.loan_amount_data
         ))
 
         loan_achivements_with_pref = list(map(
-            lambda x: x["がんばろう資金"],
+            lambda x: x["がんばろう資金"] // 10000,
             self.loan_amount_data
         ))
 
@@ -101,16 +101,13 @@ class FinancialDataHandler(handler.DataHandler):
         return loan_achivements
 
     def generate_loan_achivements_by_industry(self):
-        summary_data = self.summarize_data_by_key(
-            self.loan_counts_data, "業種コード")
-
-        loan_achivements_by_industry_data = {}
-        for k, v in summary_data.items():
-            loan_achivements_by_industry_data[self.industry_master_data[k]] = v
+        count_by_industry = {d: 0 for d in self.industry_master_data.values()}
+        for d in self.loan_counts_data:
+            count_by_industry[self.industry_master_data[d["業種コード"]]] += d["件数"]
 
         loan_achivements_by_industry = {
             "date": self.datetime_now_str,
-            "data": loan_achivements_by_industry_data,
+            "data": count_by_industry
         }
 
         return loan_achivements_by_industry
