@@ -74,15 +74,17 @@ class FinancialDataHandler(handler.DataHandler):
         return subsidy
 
     def generate_loan_achivements(self):
-        loan_achivements_with_gov = list(map(
-            lambda x: x["新型コロナ資金"] // 10000,
-            self.loan_amount_data
-        ))
+        loan_achivements_with_gov = []
+        for d in self.loan_amount_data:
+            amount = d["新型コロナ資金"] // 1000000
+            loan_achivements_with_gov.append(
+                sum(loan_achivements_with_gov) + amount)
 
-        loan_achivements_with_pref = list(map(
-            lambda x: x["がんばろう資金"] // 10000,
-            self.loan_amount_data
-        ))
+        loan_achivements_with_pref = []
+        for d in self.loan_amount_data:
+            amount = d["がんばろう資金"] // 1000000
+            loan_achivements_with_pref.append(
+                sum(loan_achivements_with_pref) + amount)
 
         dates = list(map(
             lambda x: x["基準日"].strftime("%m/%d"),
