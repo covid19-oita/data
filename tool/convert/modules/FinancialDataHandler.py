@@ -153,7 +153,8 @@ class FinancialDataHandler(handler.DataHandler):
             self.load_json_from_csv(csvfile), "基準日")
 
         for d in subsidy_data:
-            d["基準日"] = datetime.datetime.strptime(d["基準日"], "%Y/%m/%d")
+            d["基準日"] = datetime.datetime.strptime(
+                self.datetime_now_year_str + "年" + d["基準日"], "%Y年%m月%d日")
             d["相談件数（県）"] = int(d["相談件数（県）"] or 0)
             d["相談件数（国）"] = int(d["相談件数（国）"] or 0)
             d["申請書提出件数"] = int(d["申請書提出件数"] or 0)
