@@ -22,7 +22,7 @@ jobs:
         run: |
           curl -sS -o "./csv/440001oitacovid19patients.csv" $PATIENTS_DATA_URL
           curl -sS -o "./csv/440001oitacovid19datasummary.csv" $DATA_SUMMARY_URL
-          curl -sS -o "./csv/440001oitacovid19finnumber.csv" $FINANCIAL_NUNBER_URL
+          curl -sS -o "./csv/440001oitacovid19finnumber.csv" $FINANCIAL_NUMBER_URL
           curl -sS -o "./csv/440001oitacovid19finamount.csv" $FINANCIAL_AMOUNT_URL
           curl -sS -o "./csv/440001oitacovid19fintype.csv" $FINANCIAL_TYPE_URL
           curl -sS -o "./csv/440001oitaemploymentsubsidy.csv" $EMPLOYMENT_SUBSIDY_URL
