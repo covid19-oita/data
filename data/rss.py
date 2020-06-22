@@ -2,7 +2,6 @@ import feedparser
 from datetime import datetime
 import json
 
-feedparser.FeedParserDict()
 
 def generate_feeds(max_feed=3):
     """
@@ -18,7 +17,6 @@ def generate_feeds(max_feed=3):
     """
     url = "http://www.pref.oita.jp/rss/10/site-1000786.xml"
     parsed_feeds = feedparser.parse(url)
-    print(parsed_feeds.entries[0:1])
     feeds = parsed_feeds.entries[0:max_feed]
     new_feeds = []
     for feed in feeds:
@@ -32,8 +30,4 @@ def generate_feeds(max_feed=3):
                 "text": feed.title.replace("\u3000", " "),
             }
         )
-    return {
-        "newsItems": new_feeds
-    }
-
-generate_feeds()
+    return {"newsItems": new_feeds}
