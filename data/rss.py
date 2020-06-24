@@ -19,7 +19,7 @@ def generate_feeds(max_feed=3):
         dict: 適切なフォーマットに処理されたfeed
         
     Note:
-        feed_update_parsed は 最終更新日時を9タプルで返します
+        entries[i].updated_parsed は 最終更新日時を9タプルで返します
         https://pythonhosted.org/feedparser/reference-entry-updated_parsed.html
     """
     feeds = _parse_feeds(max_feed)
