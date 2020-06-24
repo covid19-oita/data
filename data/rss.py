@@ -3,6 +3,13 @@ from datetime import datetime
 import json
 
 
+def _parse_feeds(max_feed):
+    url = "http://www.pref.oita.jp/rss/10/site-1000786.xml"
+    parsed_feeds = feedparser.parse(url)
+    feeds = parsed_feeds.entries[0:max_feed]
+    return feeds
+
+
 def generate_feeds(max_feed=3):
     """
     max_feedの数だけurlのfeedを適切な形に変換します
@@ -15,9 +22,7 @@ def generate_feeds(max_feed=3):
         feed_update_parsed は 最終更新日時を9タプルで返します
         https://pythonhosted.org/feedparser/reference-entry-updated_parsed.html
     """
-    url = "http://www.pref.oita.jp/rss/10/site-1000786.xml"
-    parsed_feeds = feedparser.parse(url)
-    feeds = parsed_feeds.entries[0:max_feed]
+    feeds = _parse_feeds(max_feed)
     new_feeds = []
     for feed in feeds:
         year = feed.updated_parsed[0]
