@@ -4,16 +4,16 @@ on:
   pull_request:
     branches:
       - master
-# jobs:
-#   unittest:
-#     name: test_generate_test_script
-#     runs-on: ubuntu-18.04
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Set up Python
-#         uses: actions/setup-python@v1
-#         with:
-#           python-version: "3.7"
-#       - name: exec unittest
-#         run: python tool/convert/modules/TestDataHandler.py
-#
+jobs:
+  misspell:
+    name: misspell
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: misspell
+        uses: reviewdog/action-misspell@v1
+        with:
+          reporter: github-pr-review
+          github_token: ${{ secrets.github_token }}
+          level: warning
+          locale: "US"
