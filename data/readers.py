@@ -8,8 +8,23 @@ import csv
 
 
 class Reader(metaclass=ABCMeta):
-    def _fetch(self):
-        pass
+    @classmethod
+    def fetch(cls, urls):
+        """
+        指定された各種ファイルをインメモリでロードする
+        """
+        for url in urls:
+            try:
+                resp = requests.get(url)
+            except RequestException:
+                pass
+
+            if resp.status_code > 300:
+                raise Exception(f"status code is {resp.status_code}")
+            # see. https://docs.python.org/ja/3.7/library/codecs.html?highlight=utf%20sig#module-encodings.utf_8_sig
+            with io.StringIO(resp.content.decode('utf-8-sig')) as bs:
+                json_list = [row for row in csv.DictReader(bs)]
+                yield json_list
 
     @abstractmethod
     def read(self):
@@ -17,10 +32,6 @@ class Reader(metaclass=ABCMeta):
 
 
 class FinancialReader(Reader):
-    """
-    大分県の金融支援情報に関するファイルを読み込みます
-    """
-
     # TODO: urlが長すぎるので、環境変数から読むようにする
     def __init__(self):
         base_url = "http://data.bodik.jp/dataset/a099a7d0-8393-4982-89c3-bee49ddfcecd/resource/"
@@ -31,23 +42,8 @@ class FinancialReader(Reader):
         )
         self.urls = (base_url + suffix for suffix in (fin_number, fin_amount, fin_type))
 
-    @classmethod
-    def _fetch(cls, url):
-        """
-        指定された各種ファイルをインメモリでロードする
-        """
-        try:
-            resp = requests.get(url)
-        except RequestException:
-            pass
-
-        if resp.status_code > 300:
-            raise Exception(f"status code is {resp.status_code}")
-        json_list = []
-        # see. https://docs.python.org/ja/3.7/library/codecs.html?highlight=utf%20sig#module-encodings.utf_8_sig
-        with io.StringIO(resp.content.decode('utf-8-sig')) as bs:
-            json_list = [row for row in csv.DictReader(bs)]
-            return json_list
+    def _fetch(self):
+        super().fetch(self.urls)
 
     def read(self):
         """
@@ -55,7 +51,7 @@ class FinancialReader(Reader):
         Returns:
             list 
         """
-        return [self._fetch(url) for url in self.urls]
+        return [json_dict for json_dict in self._fetch()]
 
 
 class PatientReader(Reader):
@@ -65,3 +61,8 @@ class PatientReader(Reader):
         time_series = "96440e66-3061-43d6-adf3-ef1f24211d3a/download/440001oitacovid19datasummary.csv"
         self.urls = [base_url + suffix for suffix in (patients, time_series)]
 
+    def _fetch(self):
+        super().fetch(self.urls)
+
+    def read(self):
+        return [json_dict for json_dict in self._fetch()]
