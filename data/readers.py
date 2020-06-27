@@ -1,4 +1,5 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
+from abc import abstractmethod
 import requests
 from requests.exceptions import RequestException
 import io
@@ -6,8 +7,7 @@ import json
 import csv
 
 
-class CSVReader(metaclass=ABCMeta):
-    @abstractmethod
+class Reader(metaclass=ABCMeta):
     def _fetch(self):
         pass
 
@@ -16,11 +16,12 @@ class CSVReader(metaclass=ABCMeta):
         pass
 
 
-class FinancialReader(CSVReader):
+class FinancialReader(Reader):
     """
     大分県の金融支援情報に関するファイルを読み込みます
     """
 
+    # TODO: urlが長すぎるので、環境変数から読むようにする
     def __init__(self):
         base_url = "http://data.bodik.jp/dataset/a099a7d0-8393-4982-89c3-bee49ddfcecd/resource/"
         fin_number = "a56764ef-baba-4972-8877-e773c24d27ca/download/440001oitacovid19finnumber.csv"
@@ -43,6 +44,7 @@ class FinancialReader(CSVReader):
         if resp.status_code > 300:
             raise Exception(f"status code is {resp.status_code}")
         json_list = []
+        # see. https://docs.python.org/ja/3.7/library/codecs.html?highlight=utf%20sig#module-encodings.utf_8_sig
         with io.StringIO(resp.content.decode('utf-8-sig')) as bs:
             json_list = [row for row in csv.DictReader(bs)]
             return json_list
@@ -54,4 +56,12 @@ class FinancialReader(CSVReader):
             list 
         """
         return [self._fetch(url) for url in self.urls]
+
+
+class PatientReader(Reader):
+    def __init__(self):
+        base_url = "http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/"
+        patients = "3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv"
+        time_series = "96440e66-3061-43d6-adf3-ef1f24211d3a/download/440001oitacovid19datasummary.csv"
+        self.urls = [base_url + suffix for suffix in (patients, time_series)]
 
