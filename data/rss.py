@@ -36,3 +36,9 @@ def generate_feeds(max_feed=3):
             }
         )
     return {"newsItems": new_feeds}
+
+
+def dump_json(news: dict):
+    with open("./json/news.json", "w") as fp:
+        json.dump(news, fp, indent=2, ensure_ascii=False)
+
