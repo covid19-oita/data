@@ -3,7 +3,7 @@ name: test
 on: [pull_request]
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +24,7 @@ jobs:
         run: poetry install
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - name: test
+      - name: pytest
         run: |
           poetry shell
           pytest
