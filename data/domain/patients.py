@@ -50,11 +50,9 @@ class SickbedsSummary(object):
     def __init__(self) -> None:
         self.hospitalized_patienst: int
         self.sickbeds_count: int
+
     def to_dict(self):
-        return {
-            "入院患者数": self.hospitalized_patienst,
-            "病床数": self.sickbeds_count
-        }
+        return {"入院患者数": self.hospitalized_patienst, "病床数": self.sickbeds_count}
 
 
 ## 相談件数
