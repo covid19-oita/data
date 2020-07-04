@@ -1,6 +1,3 @@
-from data.domain.utils import read_csv
-
-
 class SubsidySummary(object):
     def __init__(self) -> None:
         self.date: str
