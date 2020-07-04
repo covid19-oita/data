@@ -1,12 +1,13 @@
+import json
 from data.domain.feed import Feed
 import feedparser
 
 
 class FeedApplicationService(object):
     @classmethod
-    def generate_feeds(cls, max_feed=3):
+    def dump_json(cls, max_feed=3):
         """
-        max_feedの数だけurlのfeedを適切な形に変換します
+        max_feedの数だけfeedを生成します
         Args:
             max_feed (int): 返すfeedの最大数
         Returns:
@@ -19,5 +20,8 @@ class FeedApplicationService(object):
         url = "http://www.pref.oita.jp/rss/10/site-1000786.xml"
         parsed_feeds = feedparser.parse(url)
         dirty_feeds = parsed_feeds.entries[0:max_feed]
-        new_feeds = [Feed(dirty_feed).to_dict() for dirty_feed in dirty_feeds]
-        return {"newItems": new_feeds}
+        new_itmes = {
+            "newItems": [Feed(dirty_feed).to_dict() for dirty_feed in dirty_feeds]
+        }
+        with open("./json/news.json", "w") as fp:
+            json.dump(new_itmes, fp, indent=2, ensure_ascii=False)
