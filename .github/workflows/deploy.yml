@@ -17,6 +17,17 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: "3.8"
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.2
+
+      - name: Set Poetry config
+        run: |
+          poetry config virtualenvs.in-project false
+          poetry config virtualenvs.path ~/.virtualenvs
+
+      - name: Install Dependencies
+        run: poetry install
+        if: steps.cache.outputs.cache-hit != 'true'
 
       - name: GET CSV files
         run: |
@@ -36,8 +47,9 @@ jobs:
 
       - name: Generate data.json and news.json
         run: |
-          pip install feedparser
+          poetry shell
           python tool/convert/main.py
+          python data/main.py
         env:
           TZ: "Asia/Tokyo"
 
@@ -49,7 +61,7 @@ jobs:
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
         if: failure()
-        
+
       - name: check diffs
         run: |
           git config --local user.email "action@github.com"
@@ -57,7 +69,7 @@ jobs:
           git add ./csv/*.csv && git diff --cached --exit-code || echo "::set-output name=diff::1"
           git add ./json/news.json && git diff --cached --exit-code || echo "::set-output name=diff::1"
         id: check_diffs
-        
+
       - name: commit data.json and news.json
         run: |
           git commit -am "[ci skip] Update Data (commited by GitHub Actions)"
@@ -69,5 +81,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
         if: steps.check_diffs.outputs.diff == 1
-
-      
