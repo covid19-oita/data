@@ -1,7 +1,8 @@
 import csv
 from datetime import datetime
 import io
-from typing import Dict, List
+from typing import Collection, Dict, List
+import collections
 from dateutil.rrule import DAILY, rrule
 import requests
 
@@ -14,6 +15,13 @@ def read_csv(url: str) -> List[Dict[str, str]]:
     with io.StringIO(resp.content.decode('utf-8-sig')) as bs:
         json_list = [row for row in csv.DictReader(bs)]
     return json_list
+
+
+def aggregate(json_list: list, key: str):
+    results = {}
+    for key, value in collections.Counter([l[key] for l in json_list]).items():
+        results[key] = value
+    return results
 
 
 def join_fintype():
