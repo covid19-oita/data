@@ -26,4 +26,4 @@ jobs:
 
       - name: pytest
         run: |
-          which poetry
+          pytest
