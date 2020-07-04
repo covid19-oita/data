@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
 
@@ -26,5 +26,4 @@ jobs:
 
       - name: pytest
         run: |
-          poetry shell
-          pytest
+          which poetry
