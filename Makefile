@@ -30,7 +30,7 @@ start:
 exec:
 	docker exec -it $(CONTAINER_NAME) apk --update add tzdata
 	docker exec -it $(CONTAINER_NAME) cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
-	docker exec -it $(CONTAINER_NAME) /usr/local/bin/pip install feedparser
+	docker exec -it $(CONTAINER_NAME) /usr/local/bin/pip install -r /app/requirements.txt
 	docker exec -it $(CONTAINER_NAME) /usr/local/bin/python /app/tool/convert/main.py
 
 stop:
