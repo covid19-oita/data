@@ -36,7 +36,7 @@ jobs:
 
       - name: Generate data.json and news.json
         run: |
-          pip install feedparser
+          pip install -r requirements.txt
           python tool/convert/main.py
         env:
           TZ: "Asia/Tokyo"
