@@ -1,9 +1,10 @@
 #
 # Makefile for manual update data
 #
-NAME=update_data
+NAME=$(CONTAINER_NAME)
 SHELL := /bin/bash
 
+CONTAINER_NAME=update_data
 PYTHON_VERSION=3.8.3-alpine
 
 PATIENTS_DATA_URL=http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv
@@ -24,14 +25,16 @@ get_data:
 	curl -sS -o "./csv/440001oitaemploymentsubsidy.csv" $(EMPLOYMENT_SUBSIDY_URL)
 
 start:
-	docker run -it --rm -d -v `pwd`:/app --name update_data python:$(PYTHON_VERSION)
+	docker run -it --rm -e TZ=Asia/Tokyo -d -v `pwd`:/app --name $(CONTAINER_NAME) python:$(PYTHON_VERSION)
 
 exec:
-	docker exec -it update_data /usr/local/bin/pip install feedparser
-	docker exec -it update_data /usr/local/bin/python /app/tool/convert/main.py
+	docker exec -it $(CONTAINER_NAME) apk --update add tzdata
+	docker exec -it $(CONTAINER_NAME) cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+	docker exec -it $(CONTAINER_NAME) /usr/local/bin/pip install feedparser
+	docker exec -it $(CONTAINER_NAME) /usr/local/bin/python /app/tool/convert/main.py
 
 stop:
-	docker stop update_data
+	docker stop $(CONTAINER_NAME)
 
 rmi:
 	docker rmi -f python:$(PYTHON_VERSION)
