@@ -175,6 +175,10 @@ class PatientDataHandler(dhandler.DataHandler):
             # 年代が空欄の場合は"非公開"とする
             d["年代"] = "非公開" if not d["年代"] else d["年代"]
 
+            # 年代が生徒の場合は"10代"とし、学生の場合は"非公開"とする
+            d["年代"] = "10代" if d["年代"] == "生徒" else d["年代"]
+            d["年代"] = "非公開" if d["年代"] == "学生" else d["年代"]
+
         return patients_data
 
     def __import_data_summary(self, csvfile):
