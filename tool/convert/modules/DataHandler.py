@@ -7,6 +7,7 @@ import datetime
 import collections
 from copy import deepcopy
 
+from chardet.universaldetector import UniversalDetector
 
 class DataHandler():
     def __init__(self):
@@ -17,9 +18,20 @@ class DataHandler():
         self.start_date = None
         self.end_date = datetime_now if datetime_now.hour >= 22 else \
             datetime_now - datetime.timedelta(days=1)
+    
+    def check_encoding(self, file_path):
+        detector = UniversalDetector()
+        with open(file_path, mode='rb') as f:
+            for binary in f:
+                detector.feed(binary)
+                if detector.done:
+                    break
+        detector.close()
+        return detector.result['encoding']
 
-    def load_json_from_csv(self, csvfile, encoding='utf_8_sig'):
+    def load_json_from_csv(self, csvfile):
         json_list = []
+        encoding = self.check_encoding(csvfile)
         with open(csvfile, 'r', encoding=encoding) as f:
             for row in csv.DictReader(f):
                 json_list.append(row)
