@@ -1,3 +1,19 @@
 {
-  "newsItems": []
+  "newsItems": [
+    {
+      "date": "2020-08-11",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "text": "大分県におけるPCR等検査実施人数及び患者状況（R2.8.11 16時30分更新）"
+    },
+    {
+      "date": "2020-08-08",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/syukuhakuryouyou.html",
+      "text": "新型コロナウイルス感染症軽症者等の宿泊施設での療養について"
+    },
+    {
+      "date": "2020-07-21",
+      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-oita-0721.html",
+      "text": "新型コロナウイルス感染症対策本部及び社会経済再活性化緊急推進本部合同会議からのお願い等"
+    }
+  ]
 }
