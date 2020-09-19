@@ -17,12 +17,12 @@ EMPLOYMENT_SUBSIDY_URL=http://data.bodik.jp/dataset/a099a7d0-8393-4982-89c3-bee4
 all: get_data start exec stop rmi
 
 get_data:
-	curl -sS -o "./csv/440001oitacovid19patients.csv" $(PATIENTS_DATA_URL)
-	curl -sS -o "./csv/440001oitacovid19datasummary.csv" $(DATA_SUMMARY_URL)
-	curl -sS -o "./csv/440001oitacovid19finnumber.csv" $(FINANCIAL_NUMBER_URL)
-	curl -sS -o "./csv/440001oitacovid19finamount.csv" $(FINANCIAL_AMOUNT_URL)
-	curl -sS -o "./csv/440001oitacovid19fintype.csv" $(FINANCIAL_TYPE_URL)
-	curl -sS -o "./csv/440001oitaemploymentsubsidy.csv" $(EMPLOYMENT_SUBSIDY_URL)
+	curl -sSL -o "./csv/440001oitacovid19patients.csv" $(PATIENTS_DATA_URL)
+	curl -sSL -o "./csv/440001oitacovid19datasummary.csv" $(DATA_SUMMARY_URL)
+	curl -sSL -o "./csv/440001oitacovid19finnumber.csv" $(FINANCIAL_NUMBER_URL)
+	curl -sSL -o "./csv/440001oitacovid19finamount.csv" $(FINANCIAL_AMOUNT_URL)
+	curl -sSL -o "./csv/440001oitacovid19fintype.csv" $(FINANCIAL_TYPE_URL)
+	curl -sSL -o "./csv/440001oitaemploymentsubsidy.csv" $(EMPLOYMENT_SUBSIDY_URL)
 
 start:
 	docker run -it --rm -e TZ=Asia/Tokyo -d -v `pwd`:/app --name $(CONTAINER_NAME) python:$(PYTHON_VERSION)

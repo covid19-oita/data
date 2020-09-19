@@ -20,12 +20,12 @@ jobs:
 
       - name: GET CSV files
         run: |
-          curl -sS -o "./csv/440001oitacovid19patients.csv" $PATIENTS_DATA_URL
-          curl -sS -o "./csv/440001oitacovid19datasummary.csv" $DATA_SUMMARY_URL
-          curl -sS -o "./csv/440001oitacovid19finnumber.csv" $FINANCIAL_NUMBER_URL
-          curl -sS -o "./csv/440001oitacovid19finamount.csv" $FINANCIAL_AMOUNT_URL
-          curl -sS -o "./csv/440001oitacovid19fintype.csv" $FINANCIAL_TYPE_URL
-          curl -sS -o "./csv/440001oitaemploymentsubsidy.csv" $EMPLOYMENT_SUBSIDY_URL
+          curl -sSL -o "./csv/440001oitacovid19patients.csv" $PATIENTS_DATA_URL
+          curl -sSL -o "./csv/440001oitacovid19datasummary.csv" $DATA_SUMMARY_URL
+          curl -sSL -o "./csv/440001oitacovid19finnumber.csv" $FINANCIAL_NUMBER_URL
+          curl -sSL -o "./csv/440001oitacovid19finamount.csv" $FINANCIAL_AMOUNT_URL
+          curl -sSL -o "./csv/440001oitacovid19fintype.csv" $FINANCIAL_TYPE_URL
+          curl -sSL -o "./csv/440001oitaemploymentsubsidy.csv" $EMPLOYMENT_SUBSIDY_URL
         env:
           PATIENTS_DATA_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv
           DATA_SUMMARY_URL: http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/96440e66-3061-43d6-adf3-ef1f24211d3a/download/440001oitacovid19datasummary.csv
