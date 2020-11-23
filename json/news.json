@@ -2,17 +2,17 @@
   "newsItems": [
     {
       "date": "2020-11-23",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
       "text": "大分県におけるPCR等検査実施人数及び患者状況（R2.11.23 16時00分更新）"
     },
     {
       "date": "2020-11-10",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/jinnkennsingatacorona.html",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/jinnkennsingatacorona.html",
       "text": "新型コロナウイルス感染症に関連する人権への配慮について"
     },
     {
       "date": "2020-11-10",
-      "url": "http://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
       "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
     }
   ]
