@@ -186,16 +186,12 @@ class PatientDataHandler(dhandler.DataHandler):
             self.load_json_from_csv(csvfile), "日付")
 
         for d in data_summary:
-            d["日付"] = datetime.datetime.strptime(
-                self.datetime_now_year_str + "年" + d["日付"], "%Y年%m月%d日")
+            d["日付"] = datetime.datetime.strptime(d["日付"], "%Y/%m/%d")
             d["検査実施件数"] = int(d["検査実施件数"]) if d["検査実施件数"] else None
             d["うち陽性"] = int(d["うち陽性"] or 0)
             d["相談窓口相談件数"] = int(d["相談窓口相談件数"]) if d["相談窓口相談件数"] else None
             d["退院"] = int(d["退院"] or 0)
             d["死亡"] = int(d["死亡"] or 0)
-
-            # CSVの日付に年が追加されるまでの対応
-            self.__count_up_year_str_if_needs(d["日付"])
 
         start_date = data_summary[-1]["日付"] + datetime.timedelta(days=1)
         for date in self.daterange(start_date, self.end_date):
@@ -209,8 +205,3 @@ class PatientDataHandler(dhandler.DataHandler):
             })
 
         return data_summary
-
-    def __count_up_year_str_if_needs(self, now):
-        # 患者情報の2020年最終更新日は12月31日
-        if now.month == 12 and now.day == 31:
-            self.datetime_now_year_str = str(int(self.datetime_now_year_str) + 1)
