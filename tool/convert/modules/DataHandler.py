@@ -11,8 +11,12 @@ from chardet.universaldetector import UniversalDetector
 
 class DataHandler():
     def __init__(self):
+        # ここが2021年になってしまったから、2021年2月29日は存在しないぞって怒られる
+        # CSV側で年をいれてもらうのがよさげ
         datetime_now = datetime.datetime.now()
-        self.datetime_now_year_str = datetime_now.strftime("%Y")
+        # CSVに年を追加してもらうまでひとまず決め打ち
+        # self.datetime_now_year_str = datetime_now.strftime("%Y")
+        self.datetime_now_year_str = "2020"
         self.datetime_now_str = datetime_now.strftime("%Y/%m/%d %H:%M")
 
         self.start_date = None

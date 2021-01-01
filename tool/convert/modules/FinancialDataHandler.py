@@ -169,7 +169,15 @@ class FinancialDataHandler(handler.DataHandler):
             d["申請書提出件数"] = int(d["申請書提出件数"] or 0)
             d["支給決定件数"] = int(d["支給決定件数"] or 0)
 
+            # CSVの日付に年が追加されるまでの対応
+            self.__count_up_year_str_if_needs(d["基準日"])
+        
         return subsidy_data
+
+    def __count_up_year_str_if_needs(self, now):
+        # 支援状況の2020年最終更新日は12月25日
+        if now.month == 12 and now.day == 25:
+            self.datetime_now_year_str = str(int(self.datetime_now_year_str) + 1)
 
 
 def main():
