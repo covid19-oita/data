@@ -162,23 +162,13 @@ class FinancialDataHandler(handler.DataHandler):
             self.load_json_from_csv(csvfile), "基準日")
 
         for d in subsidy_data:
-            d["基準日"] = datetime.datetime.strptime(
-                self.datetime_now_year_str + "年" + d["基準日"], "%Y年%m月%d日")
+            d["基準日"] = datetime.datetime.strptime(d["基準日"], "%Y/%m/%d")
             d["相談件数（県）"] = int(d["相談件数（県）"] or 0)
             d["相談件数（国）"] = int(d["相談件数（国）"] or 0)
             d["申請書提出件数"] = int(d["申請書提出件数"] or 0)
             d["支給決定件数"] = int(d["支給決定件数"] or 0)
 
-            # CSVの日付に年が追加されるまでの対応
-            self.__count_up_year_str_if_needs(d["基準日"])
-        
         return subsidy_data
-
-    def __count_up_year_str_if_needs(self, now):
-        # 支援状況の2020年最終更新日は12月25日
-        if now.month == 12 and now.day == 25:
-            self.datetime_now_year_str = str(int(self.datetime_now_year_str) + 1)
-
 
 def main():
     dh = FinancialDataHandler(
