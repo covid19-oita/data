@@ -163,10 +163,10 @@ class FinancialDataHandler(handler.DataHandler):
 
         for d in subsidy_data:
             d["基準日"] = datetime.datetime.strptime(d["基準日"], "%Y/%m/%d")
-            d["相談件数（県）"] = int(d["相談件数（県）"] or 0)
-            d["相談件数（国）"] = int(d["相談件数（国）"] or 0)
-            d["申請書提出件数"] = int(d["申請書提出件数"] or 0)
-            d["支給決定件数"] = int(d["支給決定件数"] or 0)
+            d["相談件数（県）"] = int(d["相談件数（県）"].replace(',', '') or 0)
+            d["相談件数（国）"] = int(d["相談件数（国）"].replace(',', '') or 0)
+            d["申請書提出件数"] = int(d["申請書提出件数"].replace(',', '') or 0)
+            d["支給決定件数"] = int(d["支給決定件数"].replace(',', '') or 0)
 
         return subsidy_data
 
