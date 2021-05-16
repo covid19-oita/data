@@ -1,19 +1,19 @@
 {
   "newsItems": [
     {
-      "date": "2021-05-15",
+      "date": "2021-05-16",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/juuyounaosirase.html",
+      "text": "重要なお知らせ"
+    },
+    {
+      "date": "2021-05-16",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県におけるPCR等検査実施人数及び患者状況（R3.5.15 15時00分更新）"
+      "text": "大分県におけるPCR等検査実施人数及び患者状況（R3.5.16 15時00分更新）"
     },
     {
       "date": "2021-05-12",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
       "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
-    },
-    {
-      "date": "2021-05-11",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-030511.html",
-      "text": "新型コロナウイルス感染症対策本部及び社会経済再活性化緊急推進本部合同会議からのお願い等"
     }
   ]
 }
