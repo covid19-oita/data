@@ -1,6 +1,11 @@
 {
   "newsItems": [
     {
+      "date": "2021-07-08",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
+      "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
+    },
+    {
       "date": "2021-07-07",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-event-check.html",
       "text": "大規模な催物（イベント等）における感染防止対策について"
@@ -9,11 +14,6 @@
       "date": "2021-07-07",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
       "text": "大分県におけるPCR等検査実施人数及び患者状況（R3.7.7 15時00分更新）"
-    },
-    {
-      "date": "2021-06-28",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
-      "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
     }
   ]
 }
