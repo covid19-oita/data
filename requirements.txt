@@ -1,2 +1,2 @@
-feedparser == 5.2.1
-chardet == 3.0.4
+feedparser == 6.0.8
+chardet == 4.0.0
