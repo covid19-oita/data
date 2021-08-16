@@ -18,7 +18,7 @@ jobs:
         id: health-check
         uses: srt32/uptime@master
         with:
-          url-to-hit: "http://data.bodik.jp"
+          url-to-hit: "https://data.bodik.jp"
           expected-statuses: "200"
 
 
