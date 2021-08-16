@@ -1,6 +1,7 @@
 name: production deploy
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -8,8 +9,23 @@ on:
     - cron: "0 * * * *"
 
 jobs:
+  health-check:
+    runs-on: ubuntu-18.04
+    outputs:
+      status: ${{ steps.health-check.outputs.status }}
+    steps:
+      - name: Health check
+        id: health-check
+        uses: srt32/uptime@master
+        with:
+          url-to-hit: "http://data.bodik.jp"
+          expected-statuses: "200"
+
+
   deploy:
     runs-on: ubuntu-18.04
+    needs: [health-check]
+    if: needs.health-check.outputs.status == 200
     steps:
       - uses: actions/checkout@v2
 
@@ -17,7 +33,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: "3.8"
-
+      
       - name: GET CSV files
         run: |
           curl -sSL -o "./csv/440001oitacovid19patients.csv" $PATIENTS_DATA_URL
