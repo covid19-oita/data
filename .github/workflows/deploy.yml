@@ -10,7 +10,7 @@ on:
 
 jobs:
   health-check:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     outputs:
       status: ${{ steps.health-check.outputs.status }}
     steps:
@@ -23,7 +23,7 @@ jobs:
 
 
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: [health-check]
     if: needs.health-check.outputs.status == 200
     steps:
