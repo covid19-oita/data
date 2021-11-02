@@ -1,3 +1,19 @@
 {
-  "newsItems": []
+  "newsItems": [
+    {
+      "date": "2021-11-02",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "text": "大分県におけるPCR等検査実施人数及び患者状況（R3.11.2  15時00分更新）"
+    },
+    {
+      "date": "2021-10-29",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
+      "text": "受診や予防に関する相談"
+    },
+    {
+      "date": "2021-10-14",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-031014.html",
+      "text": "新型コロナウイルス感染症対策本部及び社会経済再活性化緊急推進本部合同会議からのお願い等"
+    }
+  ]
 }
