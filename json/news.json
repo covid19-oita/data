@@ -1,19 +1,19 @@
 {
   "newsItems": [
     {
+      "date": "2021-12-03",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19vaccine-shinsei.html",
+      "text": "新型コロナウイルスワクチン接種体制支援事業について"
+    },
+    {
       "date": "2021-11-30",
       "url": "https://www.pref.oita.jp/site/covid19-oita/moderna-astrazeneca.html",
       "text": "モデルナ社・アストラゼネカ社ワクチンの接種について"
     },
     {
-      "date": "2021-12-02",
+      "date": "2021-12-03",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県におけるPCR等検査実施人数及び患者状況（R3.12.2  15時00分更新）"
-    },
-    {
-      "date": "2021-11-24",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-shien-menu.html",
-      "text": "新型コロナウイルス感染拡大に伴う県民・事業者支援メニュー"
+      "text": "大分県におけるPCR等検査実施人数及び患者状況（R3.12.3  15時00分更新）"
     }
   ]
 }
