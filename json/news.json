@@ -2,6 +2,11 @@
   "newsItems": [
     {
       "date": "2022-03-08",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
+      "text": "受診や予防に関する相談"
+    },
+    {
+      "date": "2022-03-08",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
       "text": "大分県におけるPCR等検査実施人数及び患者状況（R4.3.8 15時00分更新）"
     },
@@ -9,11 +14,6 @@
       "date": "2022-03-07",
       "url": "https://www.pref.oita.jp/site/covid19-oita/jinnkennsingatacorona.html",
       "text": "新型コロナウイルス感染症に関連する人権への配慮について"
-    },
-    {
-      "date": "2022-03-07",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
-      "text": "受診や予防に関する相談"
     }
   ]
 }
