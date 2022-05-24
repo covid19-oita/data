@@ -2,6 +2,11 @@
   "newsItems": [
     {
       "date": "2022-05-24",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-bunseki040225.html",
+      "text": "新型コロナウイルスの感染動向"
+    },
+    {
+      "date": "2022-05-24",
       "url": "https://www.pref.oita.jp/site/covid19-oita/novavax.html",
       "text": "武田社ワクチン（ノババックス）の接種予約について"
     },
@@ -9,11 +14,6 @@
       "date": "2022-05-24",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-manbou040125.html",
       "text": "感染対策について"
-    },
-    {
-      "date": "2022-05-24",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19vaccine-shinsei.html",
-      "text": "新型コロナウイルスワクチン個別接種促進のための支援について"
     }
   ]
 }
