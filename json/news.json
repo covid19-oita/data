@@ -1,11 +1,6 @@
 {
   "newsItems": [
     {
-      "date": "2022-08-19",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県におけるPCR等検査実施人数及び患者状況（R4.8.19 15時00分更新）"
-    },
-    {
       "date": "2022-08-18",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
       "text": "受診や予防に関する相談"
@@ -14,6 +9,11 @@
       "date": "2022-08-18",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-bunseki040225.html",
       "text": "新型コロナウイルスの感染動向"
+    },
+    {
+      "date": "2022-08-18",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-040818.html",
+      "text": "新型コロナウイルス感染症対策本部及び社会経済再活性化緊急推進本部合同会議からのお願い等"
     }
   ]
 }
