@@ -2,18 +2,18 @@
   "newsItems": [
     {
       "date": "2022-11-14",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "text": "大分県における新型コロナウイルス感染状況（R4.11.14 15時00分更新）"
+    },
+    {
+      "date": "2022-11-14",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-vaccine.html",
+      "text": "新型コロナウイルス感染症に係るワクチン接種に関する情報、接種状況、Q&A"
+    },
+    {
+      "date": "2022-11-14",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
       "text": "受診や予防に関する相談"
-    },
-    {
-      "date": "2022-11-13",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県における新型コロナウイルス感染状況（R4.11.13 15時00分更新）"
-    },
-    {
-      "date": "2022-11-08",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/novavax.html",
-      "text": "武田社ワクチン（ノババックス）の接種予約について（１～５回目接種）"
     }
   ]
 }
