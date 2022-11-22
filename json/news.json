@@ -1,19 +1,19 @@
 {
   "newsItems": [
     {
-      "date": "2022-11-21",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
-      "text": "受診や予防に関する相談"
-    },
-    {
-      "date": "2022-11-21",
+      "date": "2022-11-22",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県における新型コロナウイルス感染状況（R4.11.21 15時00分更新）"
+      "text": "大分県における新型コロナウイルス感染状況（R4.11.22 15時00分更新）"
     },
     {
-      "date": "2022-11-21",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-vaccine.html",
-      "text": "新型コロナウイルス感染症に係るワクチン接種に関する情報、接種状況、Q&A"
+      "date": "2022-11-22",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-manbou040125.html",
+      "text": "感染対策について"
+    },
+    {
+      "date": "2022-11-22",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-041122.html",
+      "text": "新型コロナウイルス感染症対策本部及び社会経済再活性化緊急推進本部合同会議からのお願い等"
     }
   ]
 }
