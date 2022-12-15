@@ -1,6 +1,11 @@
 {
   "newsItems": [
     {
+      "date": "2022-12-15",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-hokensyobetu.html",
+      "text": "新型コロナウイルスの保健所管内別の感染状況"
+    },
+    {
       "date": "2022-12-14",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-consultation-desk-001.html",
       "text": "受診や予防に関する相談"
@@ -9,11 +14,6 @@
       "date": "2022-12-14",
       "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
       "text": "大分県における新型コロナウイルス感染状況（R4.12.14 15時00分更新）"
-    },
-    {
-      "date": "2022-12-14",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/dantaiyoyaku.html",
-      "text": "県営ワクチン接種センターにおける大学及び企業等の団体接種予約について（３～５回目接種）"
     }
   ]
 }
