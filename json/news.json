@@ -2,13 +2,13 @@
   "newsItems": [
     {
       "date": "2023-01-26",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-hokensyobetu.html",
-      "text": "新型コロナウイルスの保健所管内別の感染状況"
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
+      "text": "大分県における新型コロナウイルス感染状況（R5.1.26 15時00分更新）"
     },
     {
-      "date": "2023-01-25",
-      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-pcr.html",
-      "text": "大分県における新型コロナウイルス感染状況（R5.1.25 15時00分更新）"
+      "date": "2023-01-26",
+      "url": "https://www.pref.oita.jp/site/covid19-oita/covid19-oita-hokensyobetu.html",
+      "text": "新型コロナウイルスの保健所管内別の感染状況"
     },
     {
       "date": "2023-01-23",
